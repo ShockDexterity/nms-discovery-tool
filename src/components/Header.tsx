@@ -1,9 +1,9 @@
 import { Box, Button, ButtonGroup, /* Breadcrumbs, */ Link, Typography } from "@mui/material";
 
-type Props = {
+type Props = Readonly<{
   title: string;
   subtitle?: string;
-};
+}>;
 
 export default function Header({ title, subtitle = "" }: Props) {
   return (
