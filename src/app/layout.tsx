@@ -1,7 +1,7 @@
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
-import Header from "@/components/Header";
+import Header from "@/components/general/Header";
 
 import theme from "@/lib/theme";
 

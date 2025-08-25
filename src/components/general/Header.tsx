@@ -1,4 +1,6 @@
-import { Box, Button, ButtonGroup, /* Breadcrumbs, */ Link, Typography } from "@mui/material";
+"use client";
+import { Box, Button, ButtonGroup, Link, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 type Props = Readonly<{
   title: string;
@@ -20,10 +22,11 @@ export default function Header({ title, subtitle = "" }: Props) {
       </Typography>
 
       {subtitle && <Typography variant="subtitle2">{subtitle}</Typography>}
-
-      <ButtonGroup>
-        <Button href="/planets">Planets</Button> <Button href="/systems">Systems</Button>
-      </ButtonGroup>
+      {usePathname() !== "/" && (
+        <ButtonGroup>
+          <Button href="/planets">Planets</Button> <Button href="/systems">Systems</Button>
+        </ButtonGroup>
+      )}
     </Box>
   );
 }

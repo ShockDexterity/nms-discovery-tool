@@ -1,9 +1,21 @@
+import React from "react";
+
+import { Box } from "@mui/material";
+
+import PlanetLoader from "@/components/planet/PlanetLoader";
+
 import { Planet } from "@/lib/types";
 
 export default function PlanetPage() {
-  return <div>Planet Page</div>;
+  return (
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <PlanetLoader planets_promise={get_planets()} />
+      </React.Suspense>
+    </Box>
+  );
 }
 
-function get_planets(): Promise<Planet[]> {
-  return fetch("./api/planets").then((response) => response.json());
+async function get_planets(): Promise<Planet[]> {
+  return fetch(process.env.url + "/api/planets").then((response) => response.json());
 }
