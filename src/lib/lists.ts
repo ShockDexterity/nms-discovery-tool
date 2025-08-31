@@ -1,5 +1,5 @@
 // A list of (unique) possible biome descriptors
-export const biomeDescriptors = [
+export const biome_descriptors = [
   "[REDACTED]",
   "Abandoned",
   "Acidic",
@@ -177,16 +177,10 @@ export const biomeDescriptors = [
 ];
 
 // planet descriptors that are shared between multiple biomes
-export const sharedDescriptors = [
-  "Abandoned",
-  "Desolate",
-  "Corrupted",
-  "Infested",
-  "Tropical",
-];
+export const shared_descriptors = ["Abandoned", "Desolate", "Corrupted", "Infested", "Tropical"];
 
 // biome descriptors that are displayed differently in-game
-export const specialDescriptors = [
+export const special_descriptors = [
   "Terraforming Catastrophe",
   "Imminent Core Detonation",
   "Infested Paradise",
@@ -244,7 +238,7 @@ export const biomes = [
 ];
 
 // A list biomes under the "exotic" category
-export const exoticBiomes = [
+export const exotic_biomes = [
   "Beams",
   "Bone Spire",
   "Bubble",
@@ -261,7 +255,7 @@ export const exoticBiomes = [
 ];
 
 // A list of every agricultural resource
-export const agriculturalResources = [
+export const agricultural_resources = [
   "None",
   "Cactus Flesh",
   "Frost Crystal",
@@ -272,7 +266,7 @@ export const agriculturalResources = [
 ];
 
 // A list of every stellar metal
-export const stellarMetals = [
+export const stellar_metals = [
   "Copper",
   "Activated Copper",
   "Cadmium",
@@ -284,7 +278,7 @@ export const stellarMetals = [
 ];
 
 // A list of every local resource
-export const localResources = [
+export const local_resources = [
   "Ammonia",
   "Basalt",
   "Dioxite",
@@ -299,22 +293,16 @@ export const localResources = [
 ];
 
 // A list of every general resource
-export const generalResources = [
-  "Cobalt",
-  "Magnetized Ferrite",
-  "Salt",
-  "Silver",
-  "Sodium",
-];
+export const general_resources = ["Cobalt", "Magnetized Ferrite", "Salt", "Silver", "Sodium"];
 
 // A list of in-game factions
 export const factions = ["Gek", "Korvax", "Vy'keen", "None"];
 
 // A list of system conflict levels
-export const conflictLevels = ["Low", "Medium", "High", "Outlaw"];
+export const conflict_levels = ["Low", "Medium", "High", "Outlaw"];
 
 // A list of economic type descriptors
-export const econDescriptors = [
+export const econ_descriptors = [
   "Alchemical",
   "Black Market",
   "Commercial",
@@ -348,7 +336,7 @@ export const econDescriptors = [
 ];
 
 // A list of economic types
-export const econTypes = [
+export const econ_types = [
   "Advanced Materials",
   "Manufacturing",
   "Mining",
@@ -361,7 +349,7 @@ export const econTypes = [
 ];
 
 // A list of economic strength descriptors
-export const econStates = [
+export const econ_states = [
   "Adequate",
   "Advanced",
   "Affluent",
@@ -390,4 +378,4 @@ export const econStates = [
 ];
 
 // A list of economic strengths
-export const econStrengths = ["None", "Weak", "Average", "Strong"];
+export const econ_strengths = ["None", "Weak", "Average", "Strong"];

@@ -12,12 +12,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <title>NMS Discovery Tool</title>
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container>
-              <Header title="No Man's Sky Discovery Browser" />
+              <Header title="No Man's Sky Discovery Tool" />
               {children}
             </Container>
           </ThemeProvider>

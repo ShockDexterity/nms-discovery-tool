@@ -1,3 +1,10 @@
+import React from "react";
+
 export default function SystemPage() {
-  return <div>System Page</div>;
+  return (
+    <React.Fragment>
+      <title>System Browser</title>
+      <div>System Page</div>
+    </React.Fragment>
+  );
 }

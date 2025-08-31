@@ -1,4 +1,4 @@
-import { exoticBiomes } from "./lists";
+import { exotic_biomes } from "./lists";
 
 /**
  * An object that maps unique biome descriptors to their more general biome type.
@@ -217,7 +217,7 @@ export const resourceBiomeMap: { [index: string]: string[] } = {
   Basalt: ["Volcanic"],
   Dioxite: ["Frozen", "Chromatic"],
   Faecium: ["Marsh"],
-  Gold: [...exoticBiomes],
+  Gold: [...exotic_biomes],
   Mordite: ["Marsh"],
   Paraffinium: ["Lush", "Marsh"],
   Phosphorus: ["Scorched", "Chromatic"],
@@ -295,4 +295,112 @@ export const econStrengthMap: { [index: string]: string } = {
   Unpromising: "Weak",
   Unsuccessful: "Weak",
   Wealthy: "Strong",
+};
+
+/**
+ * An object that hold lists of each type of resource
+ */
+export const resources = {
+  agricultural: ["None", "Cactus Flesh", "Frost Crystal", "Fungal Mould", "Gamma Root", "Solanium", "Star Bulb"],
+  stellar: [
+    "Copper",
+    "Activated Copper",
+    "Cadmium",
+    "Activated Cadmium",
+    "Emeril",
+    "Activated Emeril",
+    "Indium",
+    "Activated Indium",
+  ],
+  local: [
+    "Ammonia",
+    "Basalt",
+    "Dioxite",
+    "Faecium",
+    "Gold",
+    "Mordite",
+    "Paraffinium",
+    "Phosphorus",
+    "Pyrite",
+    "Rusted Metal",
+    "Uranium",
+  ],
+  general: ["Cobalt", "Magnetized Ferrite", "Salt", "Silver", "Sodium"],
+};
+
+/**
+ * An object that hold lists of each type of economy info
+ */
+export const economy = {
+  descriptors: [
+    "Alchemical",
+    "Black Market",
+    "Commercial",
+    "Construction",
+    "Energy Supply",
+    "Engineering",
+    "Experimental",
+    "Fuel Generation",
+    "High Tech",
+    "High Voltage",
+    "Industrial",
+    "Manufacturing",
+    "Mass Production",
+    "Material Fusion",
+    "Mathematical",
+    "Mercantile",
+    "Metal Processing",
+    "Minerals",
+    "Mining",
+    "Nano-construction",
+    "None",
+    "Ore Extraction",
+    "Ore Processing",
+    "Power Generation",
+    "Prospecting",
+    "Research",
+    "Scientific",
+    "Shipping",
+    "Technology",
+    "Trading",
+  ],
+  types: [
+    "Advanced Materials",
+    "Manufacturing",
+    "Mining",
+    "Outlaw",
+    "Power Generation",
+    "Scientific",
+    "Technology",
+    "Trading",
+    "Uncharted",
+  ],
+  states: [
+    "Adequate",
+    "Advanced",
+    "Affluent",
+    "Balanced",
+    "Booming",
+    "Comfortable",
+    "Declining",
+    "Destitute",
+    "Developing",
+    "Failing",
+    "Fledgling",
+    "Flourishing",
+    "High Supply",
+    "Low Supply",
+    "Medium Supply",
+    "None",
+    "Opulent",
+    "Promising",
+    "Prosperous",
+    "Satisfactory",
+    "Struggling",
+    "Sustainable",
+    "Unpromising",
+    "Unsuccessful",
+    "Wealthy",
+  ],
+  strengths: ["None", "Weak", "Average", "Strong"],
 };
