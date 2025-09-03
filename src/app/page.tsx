@@ -1,16 +1,17 @@
-import { Box, Button } from "@mui/material";
+import CenterBox from "@/components/general/CenterBox";
+import { Button, Divider } from "@mui/material";
 
 export default function Home() {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      sx={{ pb: 2, my: 2, borderBottom: 1, borderColor: "divider" }}
-    >
-      <Button href="/planets">Planets</Button>
+    <CenterBox>
+      <Button href="/planets" variant="outlined" sx={{ my: 1 }}>
+        Planets
+      </Button>
+      <Button href="/systems" variant="outlined" sx={{ my: 1 }}>
+        Systems
+      </Button>
 
-      <Button href="/systems">Systems</Button>
-    </Box>
+      <Divider sx={{ my: 2, width: "100%" }} />
+    </CenterBox>
   );
 }

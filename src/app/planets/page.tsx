@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Box, CircularProgress, Divider } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
+import CenterBox from "@/components/general/CenterBox";
 import PlanetLoader from "@/components/planet/PlanetLoader";
 
 import { Planet } from "@/lib/types";
@@ -11,11 +12,15 @@ export default function PlanetPage() {
     <React.Fragment>
       <title>Planet Browser</title>
 
-      <Box>
-        <React.Suspense fallback={<CircularProgress size={100} />}>
-          <PlanetLoader planets_promise={get_planets()} />
-        </React.Suspense>
-      </Box>
+      <React.Suspense
+        fallback={
+          <CenterBox>
+            <CircularProgress size={100} />
+          </CenterBox>
+        }
+      >
+        <PlanetLoader planets_promise={get_planets()} />
+      </React.Suspense>
     </React.Fragment>
   );
 }

@@ -9,3 +9,27 @@ export async function GET(request: Request) {
 
   return NextResponse.json(planets);
 }
+
+export async function POST(request: Request) {
+  const body = await request.json();
+
+  console.log(body);
+
+  try {
+    // validate planet
+    // if not valid, throw error
+    // grab Planets collection, insertOne
+    // if there is a warning, send warning in success response
+    // if not, respond normally
+
+    return NextResponse.json({ success: true, info: body });
+  } catch (error: any) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    } else if (error instanceof Error) {
+      return NextResponse.json({ error: error.message });
+    } else {
+      return NextResponse.json({ error: "Unknown Error" });
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from "react";
 
-import { Box, Card, CardActionArea, CardActions, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
+import { Card, CardActionArea, CardActions, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
 
 import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
 

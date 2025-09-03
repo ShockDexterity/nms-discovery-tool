@@ -23,9 +23,9 @@ export default function PlanetLoader({ planets_promise }: Props) {
 
   const [b, setB] = React.useState<boolean>(false);
 
-  const handle_fab = () => {
-    console.log("fab clicked");
-  };
+  // const handle_fab = () => {
+  //   console.log("fab clicked");
+  // };
 
   const [boa, setBoa] = React.useState<string>("");
   const [stellar, setStellar] = React.useState<string>("");
@@ -88,7 +88,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
         </Button>
       </CenterBox>
 
-      <Fab color="primary" sx={fabSX} onClick={handle_fab}>
+      <Fab color="primary" sx={fabSX} href="/planets/add">
         <AddIcon />
       </Fab>
     </React.Fragment>
