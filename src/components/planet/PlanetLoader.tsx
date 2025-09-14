@@ -34,11 +34,16 @@ export default function PlanetLoader({ planets_promise }: Props) {
   return (
     <React.Fragment>
       <CenterBox>
+        <Button variant="outlined" href="/planets/add" sx={{ mb: 1 }}>
+          Add Planet
+        </Button>
+
         <Button
           variant="outlined"
           onClick={() => {
             setShowFilters(!showFilters);
           }}
+          sx={{ mt: 1 }}
         >
           Filters
         </Button>
@@ -81,15 +86,11 @@ export default function PlanetLoader({ planets_promise }: Props) {
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
       <CenterBox>
-        <Button variant="outlined" href="/planets/add" sx={{ mb: 1 }}>
-          Add Planet
-        </Button>
         <Button
           variant="outlined"
           onClick={() => {
             router.refresh();
           }}
-          sx={{ mt: 1 }}
         >
           Refresh
         </Button>
