@@ -3,14 +3,16 @@ import React from "react";
 
 import { Button, Collapse, Divider, Fab } from "@mui/material";
 
+import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 import PlanetCard from "@/components/planet/PlanetCard";
+import PlanetFilters from "@/components/planet/PlanetFilters";
 
 import { Planet } from "@/lib/types";
 import { Add as AddIcon } from "@mui/icons-material";
-import PlanetFilters from "@/components/planet/PlanetFilters";
-import CenterBox from "@/components/general/CenterBox";
+
+import { useRouter } from "next/navigation";
 
 type Props = Readonly<{
   planets_promise: Promise<Planet[]>;
@@ -26,6 +28,8 @@ export default function PlanetLoader({ planets_promise }: Props) {
   const [local, setLocal] = React.useState<string>("");
   const [general, setGeneral] = React.useState<string>("");
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
+
+  const router = useRouter();
 
   return (
     <React.Fragment>
@@ -75,6 +79,17 @@ export default function PlanetLoader({ planets_promise }: Props) {
       </GridContainer>
 
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
+
+      <CenterBox>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            router.refresh();
+          }}
+        >
+          Refresh
+        </Button>
+      </CenterBox>
 
       <Fab color="primary" sx={fabSX} href="/planets/add">
         <AddIcon />
