@@ -2,7 +2,7 @@ import React from "react";
 
 import { CircularProgress } from "@mui/material";
 
-import PlanetEditForm from "@/components/planet/PlanetEditForm";
+import SystemEditForm from "@/components/system/SystemEditForm";
 import CenterBox from "@/components/general/CenterBox";
 
 type Props = {
@@ -18,11 +18,11 @@ export default function Page({ params }: Props) {
         </CenterBox>
       }
     >
-      <PlanetEditForm planet_promise={get_planet(React.use(params).id)} />
+      <SystemEditForm system_promise={get_system(React.use(params).id)} />
     </React.Suspense>
   );
 }
 
-function get_planet(id: string) {
-  return fetch("http://localhost:3000/api/planets/" + id, { method: "GET" }).then((resp) => resp.json());
+function get_system(id: string) {
+  return fetch("http://localhost:3000/api/systems/" + id, { method: "GET" }).then((resp) => resp.json());
 }

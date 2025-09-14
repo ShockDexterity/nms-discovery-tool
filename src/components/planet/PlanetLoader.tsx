@@ -27,6 +27,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
   const [stellar, setStellar] = React.useState<string>("");
   const [local, setLocal] = React.useState<string>("");
   const [general, setGeneral] = React.useState<string>("");
+
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
   const router = useRouter();
@@ -44,9 +45,9 @@ export default function PlanetLoader({ planets_promise }: Props) {
         </Button>
       </CenterBox>
 
-      <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
-
       <Collapse in={showFilters} sx={{ width: "100%" }}>
+        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
+
         <PlanetFilters
           boa={boa}
           setBoa={setBoa}
@@ -57,9 +58,9 @@ export default function PlanetLoader({ planets_promise }: Props) {
           general={general}
           setGeneral={setGeneral}
         />
-
-        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
       </Collapse>
+
+      <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
       <GridContainer>
         {planets

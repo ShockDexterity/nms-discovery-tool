@@ -56,33 +56,35 @@ export function descriptor_string(descriptor: string, isMoon: boolean) {
   return `${descriptor} ${isMoon ? "Moon" : "Planet"}`;
 }
 
-export function system_border(hasAtlas: boolean, hasBlackhole: boolean, useDefault = true): Object {
+export function system_border(hasAtlas: boolean, hasBlackhole: boolean): Object {
   if (hasAtlas && hasBlackhole) {
     return {
       border,
       borderImageSlice: 1,
       borderImageSource: "linear-gradient(45deg, #f44336 50%, #ce93d8 50%)",
       borderRadius,
+      width,
     } as const;
   } else if (hasAtlas) {
     return {
       border,
       borderColor: "error.main",
       borderRadius,
+      width,
     } as const;
   } else if (hasBlackhole) {
     return {
       border,
       borderColor: "secondary.main",
       borderRadius,
-    } as const;
-  } else if (useDefault) {
-    return {
-      border,
-      borderColor: "black",
-      borderRadius,
+      width,
     } as const;
   } else {
-    return {} as const;
+    return {
+      border,
+      borderColor: "#1e1e1e",
+      borderRadius,
+      width,
+    } as const;
   }
 }

@@ -11,10 +11,13 @@ import { resources } from "@/lib/maps";
 type Props = {
   boa: string;
   setBoa: React.Dispatch<React.SetStateAction<string>>;
+
   stellar: string;
   setStellar: React.Dispatch<React.SetStateAction<string>>;
+
   local: string;
   setLocal: React.Dispatch<React.SetStateAction<string>>;
+
   general: string;
   setGeneral: React.Dispatch<React.SetStateAction<string>>;
 };
