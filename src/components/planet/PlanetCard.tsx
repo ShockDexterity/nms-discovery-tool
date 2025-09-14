@@ -1,3 +1,4 @@
+"use client";
 import React, { SyntheticEvent } from "react";
 
 import { Card, CardActionArea, CardActions, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
@@ -8,25 +9,35 @@ import { Planet } from "@/lib/types";
 import { biome_border, descriptor_string } from "@/lib/functions";
 import SentinelText from "@/components/planet/SentinelText";
 
+import { useRouter } from "next/navigation";
+
 type Props = Readonly<{ planet: Planet }>;
 
 export default function PlanetCard({ planet }: Props) {
+  const router = useRouter();
+
   const handle_details = (event: SyntheticEvent) => {
     event.preventDefault();
 
     console.log("details button clicked");
   };
 
-  const handle_edit = (event: SyntheticEvent) => {
+  const handle_delete = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    console.log("edit button clicked");
-  };
+    if (window.confirm(`Are you sure you want to delete "${planet.name}"?`)) {
+      const response = await fetch(`./api/planets/${planet._id}`, {
+        method: "DELETE",
+      }).then((resp) => resp.json());
 
-  const handle_delete = (event: SyntheticEvent) => {
-    event.preventDefault();
+      if (response.error) {
+        console.error(response);
+      } else {
+        console.log(response);
+      }
+    }
 
-    console.log("delete button clicked");
+    router.refresh();
   };
 
   return (
@@ -48,7 +59,7 @@ export default function PlanetCard({ planet }: Props) {
       </CardActionArea>
 
       <CardActions>
-        <IconButton size="small" color="warning" onClick={handle_edit} sx={{ mr: 2 }}>
+        <IconButton size="small" color="warning" href={`/planets/edit/${planet._id}`} sx={{ mr: 2 }}>
           <EditIcon />
         </IconButton>
 

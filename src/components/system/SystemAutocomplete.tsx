@@ -7,9 +7,9 @@ import MyAutocomplete from "@/components/general/MyAutocomplete";
 import { System } from "@/lib/types";
 import { ErrorBoundary } from "react-error-boundary";
 
-type Props = Readonly<{ system_list_promise: Promise<System[]> }>;
+type Props = Readonly<{ system_list_promise: Promise<System[]>; defaultValue?: string }>;
 
-export default function SystemAutocomplete({ system_list_promise }: Props) {
+export default function SystemAutocomplete({ system_list_promise, defaultValue = undefined }: Props) {
   return (
     <MyAutocomplete
       label="System Name"
@@ -17,6 +17,7 @@ export default function SystemAutocomplete({ system_list_promise }: Props) {
       options={React.use(system_list_promise)
         .map((s) => s.name)
         .sort((a, b) => a.localeCompare(b))}
+      defaultValue={defaultValue}
     />
   );
 }

@@ -19,12 +19,19 @@ import FormBox from "@/components/general/FormBox";
 import MyAutocomplete from "@/components/general/MyAutocomplete";
 import SystemAutocomplete from "@/components/system/SystemAutocomplete";
 
-import { biome_descriptors } from "@/lib/lists";
+import { Planet } from "@/lib/types";
+import { biome_descriptors, biomes } from "@/lib/lists";
 import { resources } from "@/lib/maps";
 
 import { useRouter } from "next/navigation";
 
-export default function PlanetAddForm() {
+type Props = {
+  planet_promise: Promise<Planet>;
+};
+
+export default function PlanetEditForm({ planet_promise }: Props) {
+  const planet = React.use(planet_promise);
+
   const SentinelLabelId = React.useId();
 
   const router = useRouter();
@@ -39,8 +46,8 @@ export default function PlanetAddForm() {
     console.log(form_data);
 
     try {
-      const response = await fetch("http://localhost:3000/api/planets", {
-        method: "POST",
+      const response = await fetch(`http://localhost:3000/api/planets/${planet._id}`, {
+        method: "PUT",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -81,21 +88,30 @@ export default function PlanetAddForm() {
             <FormLabel>Basic Info</FormLabel>
 
             <FormBox>
-              <TextField label="Planet Name" name="name" size="small" required />
+              <TextField label="Planet Name" name="name" size="small" defaultValue={planet.name ?? ""} required />
             </FormBox>
 
             <React.Suspense fallback={<CircularProgress size={56} />}>
               <FormBox>
-                <SystemAutocomplete system_list_promise={get_systems()} />
+                <SystemAutocomplete system_list_promise={get_systems()} defaultValue={planet.system ?? ""} />
               </FormBox>
             </React.Suspense>
 
             <FormBox>
-              <MyAutocomplete label="Planet Descriptor" name="descriptor" options={biome_descriptors} />
+              <MyAutocomplete
+                label="Planet Descriptor"
+                name="descriptor"
+                options={biome_descriptors}
+                defaultValue={planet.descriptor ?? ""}
+              />
             </FormBox>
 
             <FormBox>
-              <FormControlLabel label="Moon" control={<Checkbox name="moon" />} />
+              <MyAutocomplete label="Planet Biome" name="biome" options={biomes} defaultValue={planet.biome ?? ""} />
+            </FormBox>
+
+            <FormBox>
+              <FormControlLabel label="Moon" control={<Checkbox name="moon" defaultChecked={planet.moon ?? false} />} />
             </FormBox>
 
             <Divider sx={{ my: 1, width: "50%" }} />
@@ -103,19 +119,39 @@ export default function PlanetAddForm() {
             <FormLabel>Resources</FormLabel>
 
             <FormBox>
-              <MyAutocomplete label="Agricultural Resource" name="agricultural" options={resources.agricultural} />
+              <MyAutocomplete
+                label="Agricultural Resource"
+                name="agricultural"
+                options={resources.agricultural}
+                defaultValue={planet.resources.agricultural ?? ""}
+              />
             </FormBox>
 
             <FormBox>
-              <MyAutocomplete label="Stellar Metal" name="stellar" options={resources.stellar} />
+              <MyAutocomplete
+                label="Stellar Metal"
+                name="stellar"
+                options={resources.stellar}
+                defaultValue={planet.resources.stellar ?? ""}
+              />
             </FormBox>
 
             <FormBox>
-              <MyAutocomplete label="Local Resource" name="local" options={resources.local} />
+              <MyAutocomplete
+                label="Local Resource"
+                name="local"
+                options={resources.local}
+                defaultValue={planet.resources.local ?? ""}
+              />
             </FormBox>
 
             <FormBox>
-              <MyAutocomplete label="General Resource" name="general" options={resources.general} />
+              <MyAutocomplete
+                label="General Resource"
+                name="general"
+                options={resources.general}
+                defaultValue={planet.resources.general ?? ""}
+              />
             </FormBox>
 
             <Divider sx={{ my: 0.5, width: "50%" }} />
@@ -124,7 +160,12 @@ export default function PlanetAddForm() {
               <FormLabel id={SentinelLabelId}>Sentinel Presence</FormLabel>
             </FormBox>
             <FormBox>
-              <RadioGroup row defaultValue="low" name="sentinels" aria-labelledby={SentinelLabelId}>
+              <RadioGroup
+                row
+                defaultValue={planet.sentinels ?? "low"}
+                name="sentinels"
+                aria-labelledby={SentinelLabelId}
+              >
                 <FormControlLabel label="Low" value="low" control={<Radio />} />
                 <FormControlLabel label="High" value="high" control={<Radio />} />
                 <FormControlLabel label="Aggressive" value="aggressive" control={<Radio />} />

@@ -21,12 +21,6 @@ const fabSX = { position: "absolute", bottom: 16, right: 16 };
 export default function PlanetLoader({ planets_promise }: Props) {
   const planets = React.use(planets_promise);
 
-  const [b, setB] = React.useState<boolean>(false);
-
-  // const handle_fab = () => {
-  //   console.log("fab clicked");
-  // };
-
   const [boa, setBoa] = React.useState<string>("");
   const [stellar, setStellar] = React.useState<string>("");
   const [local, setLocal] = React.useState<string>("");
@@ -83,7 +77,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
       <CenterBox>
-        <Button variant="outlined" onClick={() => setB(!b)}>
+        <Button variant="outlined" onClick={() => {}}>
           Refresh
         </Button>
       </CenterBox>

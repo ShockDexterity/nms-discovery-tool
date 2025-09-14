@@ -4,10 +4,10 @@ type Props = Readonly<{
   label: string;
   name: string;
   options: string[];
-  defaultValue?: string | null;
+  defaultValue?: string;
 }>;
 
-export default function MyAutocomplete({ label, name, options, defaultValue = null }: Props) {
+export default function MyAutocomplete({ label, name, options, defaultValue = undefined }: Props) {
   if (defaultValue && !defaultValue.includes("/")) {
     // if there is a default value, define it
     return (
