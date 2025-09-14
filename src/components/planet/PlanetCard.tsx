@@ -1,7 +1,17 @@
 "use client";
 import React, { SyntheticEvent } from "react";
 
-import { Card, CardActionArea, CardActions, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Collapse,
+  Divider,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
 import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
 
@@ -16,10 +26,12 @@ type Props = Readonly<{ planet: Planet }>;
 export default function PlanetCard({ planet }: Props) {
   const router = useRouter();
 
+  const [open, setOpen] = React.useState<boolean>(false);
+
   const handle_details = (event: SyntheticEvent) => {
     event.preventDefault();
 
-    console.log("details button clicked");
+    setOpen(!open);
   };
 
   const handle_delete = async (event: SyntheticEvent) => {
@@ -55,6 +67,18 @@ export default function PlanetCard({ planet }: Props) {
           <Typography variant="body2" color="textSecondary" component="p">
             {planet.system} System
           </Typography>
+
+          <Collapse in={open}>
+            <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}>{planet.biome} Biome</Divider>
+            <Typography variant="body2" color="textSecondary">
+              {planet.resources.agricultural === "None" ? "No Agricultural Resource" : planet.resources.agricultural}
+            </Typography>
+
+            <Typography variant="body2" color="textSecondary">
+              {planet.resources.stellar.replace("Activated", "Act.")}, {planet.resources.local},{" "}
+              {planet.resources.general.replace("Magnetized", "Mag.")}
+            </Typography>
+          </Collapse>
         </CardContent>
       </CardActionArea>
 
