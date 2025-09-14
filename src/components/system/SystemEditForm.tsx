@@ -136,13 +136,12 @@ export default function SystemEditForm({ system_promise }: Props) {
             <FormBox>
               <FormControlLabel
                 label="Atlas System"
-                control={<Checkbox name="atlas" defaultChecked={system.atlas ?? false} />}
+                control={<Checkbox name="atlas" defaultChecked={system.atlas} />}
               />
 
               <FormControlLabel
                 label="Black Hole"
-                control={<Checkbox name="blackhole" />}
-                defaultChecked={system.blackhole ?? false}
+                control={<Checkbox name="blackhole" defaultChecked={system.blackhole} />}
               />
             </FormBox>
 
@@ -151,12 +150,12 @@ export default function SystemEditForm({ system_promise }: Props) {
             <FormBox>
               <FormControlLabel
                 label="Exosuit Claimed"
-                control={<Checkbox name="exosuit" defaultChecked={system.exosuit ?? false} />}
+                control={<Checkbox name="exosuit" defaultChecked={system.exosuit} />}
               />
 
               <FormControlLabel
                 label="AtlasPass v3 Claimed"
-                control={<Checkbox name="v3" defaultChecked={system.v3 ?? false} />}
+                control={<Checkbox name="v3" defaultChecked={system.v3} />}
               />
             </FormBox>
 

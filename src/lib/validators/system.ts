@@ -75,45 +75,13 @@ export function validate_system(submission: Submission): { validSystem?: SystemN
   }
   const sConflict = submission.conflict;
 
-  const goodExosuitOptions = ["yes", "exosuit", "true", "on", true];
-  const badExosuitOptions = ["no", "off", "false", false];
-  if (submission.exosuit && typeof submission.exosuit === "string") {
-    const options = [...goodExosuitOptions, ...badExosuitOptions].filter((value) => typeof value === "string");
-    if (!options.includes(submission.exosuit)) {
-      throw new ValidationError(`An "exosuit" string must be: ${options.join(" ")}`, 400);
-    }
-  }
-  const sExosuit = submission.exosuit !== undefined ? goodExosuitOptions.includes(submission.exosuit) : false;
+  const sExosuit = submission.exosuit !== undefined ? submission.exosuit === "on" : false;
 
-  const goodV3Options = ["yes", "v3", "true", "on", true];
-  const badV3Options = ["no", "off", "false", false];
-  if (submission.v3 && typeof submission.v3 === "string") {
-    const options = [...goodV3Options, ...badV3Options].filter((value) => typeof value === "string");
-    if (!options.includes(submission.v3)) {
-      throw new ValidationError(`A "v3" string must be: ${options.join(" ")}`, 400);
-    }
-  }
-  const sV3 = submission.abandoned !== undefined ? goodV3Options.includes(submission.abandoned) : false;
+  const sV3 = submission.abandoned !== undefined ? submission.v3 === "on" : false;
 
-  const goodAtlasOptions = ["yes", "atlas", "true", "on", true];
-  const badAtlasOptions = ["no", "off", "false", false];
-  if (submission.atlas && typeof submission.atlas === "string") {
-    const options = [...goodAtlasOptions, ...badAtlasOptions].filter((value) => typeof value === "string");
-    if (!options.includes(submission.atlas)) {
-      throw new ValidationError(`An "abandoned" string must be: ${options.join(" ")}`, 400);
-    }
-  }
-  const sAtlas = submission.atlas !== undefined ? goodAtlasOptions.includes(submission.atlas) : false;
+  const sAtlas = submission.atlas !== undefined ? submission.atlas === "on" : false;
 
-  const goodBlackHoleOptions = ["yes", "blackhole", "true", "on", true];
-  const badBlackHoleOptions = ["no", "off", "false", false];
-  if (submission.blackhole && typeof submission.blackhole === "string") {
-    const options = [...goodBlackHoleOptions, ...badBlackHoleOptions].filter((value) => typeof value === "string");
-    if (!options.includes(submission.blackhole.toLowerCase())) {
-      throw new ValidationError(`An "abandoned" string must be: ${options.join(" ")}`, 400);
-    }
-  }
-  const sBlackhole = submission.blackhole !== undefined ? goodBlackHoleOptions.includes(submission.blackhole) : false;
+  const sBlackhole = submission.blackhole !== undefined ? submission.blackhole === "on" : false;
 
   const returnSystem: SystemNoId = {
     name: sName,
@@ -137,24 +105,4 @@ export function validate_system(submission: Submission): { validSystem?: SystemN
   }
 
   return { validSystem: returnSystem };
-}
-
-function getEconTypeEdit(descriptor: string, type: string): { econType: string; note?: string } {
-  if (econTypeMap[descriptor] !== type) {
-    return {
-      econType: econTypeMap[descriptor],
-      note: `${type} did not match descriptor ${descriptor}, overwritten`,
-    };
-  }
-  return { econType: type };
-}
-
-function getEconStrengthEdit(state: string, strength: string): { econStrength: string; note?: string } {
-  if (econStrengthMap[state] !== strength) {
-    return {
-      econStrength: econStrengthMap[state],
-      note: `${strength} did not match state ${state}, overwritten`,
-    };
-  }
-  return { econStrength: strength };
 }
