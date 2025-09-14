@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { Button, Collapse, Divider, Fab } from "@mui/material";
+import { Button, Collapse, Divider } from "@mui/material";
 
 import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
@@ -10,7 +10,6 @@ import PlanetCard from "@/components/planet/PlanetCard";
 import PlanetFilters from "@/components/planet/PlanetFilters";
 
 import { Planet } from "@/lib/types";
-import { Add as AddIcon } from "@mui/icons-material";
 
 import { useRouter } from "next/navigation";
 
@@ -82,19 +81,19 @@ export default function PlanetLoader({ planets_promise }: Props) {
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
       <CenterBox>
+        <Button variant="outlined" href="/planets/add" sx={{ mb: 1 }}>
+          Add Planet
+        </Button>
         <Button
           variant="outlined"
           onClick={() => {
             router.refresh();
           }}
+          sx={{ mt: 1 }}
         >
           Refresh
         </Button>
       </CenterBox>
-
-      <Fab color="primary" sx={fabSX} href="/planets/add">
-        <AddIcon />
-      </Fab>
     </React.Fragment>
   );
 }
