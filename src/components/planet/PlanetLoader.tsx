@@ -76,12 +76,6 @@ export default function PlanetLoader({ planets_promise }: Props) {
 
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
-      <CenterBox>
-        <Button variant="outlined" onClick={() => {}}>
-          Refresh
-        </Button>
-      </CenterBox>
-
       <Fab color="primary" sx={fabSX} href="/planets/add">
         <AddIcon />
       </Fab>
