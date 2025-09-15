@@ -107,7 +107,7 @@ export default function PlanetAddForm() {
             </FormBox>
 
             <FormBox>
-              <MyAutocomplete label="Stellar Metal" name="stellar" options={resources.stellar} />
+              <MyAutocomplete label="Stellar Metal" name="stellar" options={resources.stellar} defaultValue="Copper" />
             </FormBox>
 
             <FormBox>
