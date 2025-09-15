@@ -18,7 +18,7 @@ type Props = Readonly<{
   systems_promise: Promise<System[]>;
 }>;
 
-const fabSX = { position: "absolute", top: 16, left: 16 };
+const fabSX = { position: "fixed", top: 16, left: 16 };
 
 export default function SystemLoader({ systems_promise }: Props) {
   const systems = React.use(systems_promise);

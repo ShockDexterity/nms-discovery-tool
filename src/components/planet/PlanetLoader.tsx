@@ -18,7 +18,7 @@ type Props = Readonly<{
   planets_promise: Promise<Planet[]>;
 }>;
 
-const fabSX = { position: "absolute", top: 16, left: 16 };
+const fabSX = { position: "fixed", top: 16, left: 16 };
 
 export default function PlanetLoader({ planets_promise }: Props) {
   const planets = React.use(planets_promise);
