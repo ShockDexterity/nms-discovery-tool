@@ -55,11 +55,7 @@ export default function PlanetCard({ planet }: Props) {
   return (
     <Card sx={biome_border(planet.extreme, planet.infested, planet.exotic)}>
       <CardActionArea onClick={handle_details}>
-        <CardHeader
-          title={planet.name}
-          slotProps={{ title: { component: "h6" } }}
-          subheader={descriptor_string(planet.descriptor, planet.moon)}
-        />
+        <CardHeader title={planet.name} subheader={descriptor_string(planet.descriptor, planet.moon)} />
 
         <CardContent>
           <SentinelText level={planet.sentinels} display="card" />

@@ -33,9 +33,11 @@ export default function SystemCard({ system }: Props) {
     router.refresh();
   };
 
+  const sys_name = system.exosuit ? system.name : `${system.name}*`;
+
   return (
     <Card sx={system_border(system.atlas, system.blackhole)}>
-      <CardHeader title={system.name} slotProps={{ title: { component: "h6" } }} subheader={system.faction} />
+      <CardHeader title={sys_name} subheader={system.faction} />
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
