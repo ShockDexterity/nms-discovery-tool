@@ -79,11 +79,11 @@ export default function PlanetCard({ planet }: Props) {
       </CardActionArea>
 
       <CardActions>
-        <IconButton size="small" color="warning" href={`/planets/edit/${planet._id}`} sx={{ mr: 2 }}>
+        <IconButton size="small" color="warning" href={`/planets/edit/${planet._id}`} sx={{ mr: 0.5 }}>
           <EditIcon />
         </IconButton>
 
-        <IconButton size="small" color="error" onClick={handle_delete} sx={{ ml: 2 }}>
+        <IconButton size="small" color="error" onClick={handle_delete} sx={{ ml: 0.5 }}>
           <DeleteIcon />
         </IconButton>
       </CardActions>
