@@ -2,6 +2,7 @@
 import React from "react";
 
 import { Button, Collapse, Divider, Fab } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
 
 import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
@@ -10,7 +11,6 @@ import SystemCard from "@/components/system/SystemCard";
 import SystemFilters from "@/components/system/SystemFilters";
 
 import { System } from "@/lib/types";
-import { Add as AddIcon } from "@mui/icons-material";
 
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,7 @@ type Props = Readonly<{
   systems_promise: Promise<System[]>;
 }>;
 
-const fabSX = { position: "absolute", bottom: 16, right: 16 };
+const fabSX = { position: "absolute", top: 16, left: 16 };
 
 export default function SystemLoader({ systems_promise }: Props) {
   const systems = React.use(systems_promise);
@@ -96,7 +96,7 @@ export default function SystemLoader({ systems_promise }: Props) {
         </Button>
       </CenterBox>
 
-      <Fab color="primary" sx={fabSX} href="/systems/add">
+      <Fab color="info" sx={fabSX} href="/systems/add">
         <AddIcon />
       </Fab>
     </React.Fragment>

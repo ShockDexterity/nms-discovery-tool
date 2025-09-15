@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 
-import { Button, Collapse, Divider } from "@mui/material";
+import { Button, Collapse, Divider, Fab } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
 
 import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
@@ -17,7 +18,7 @@ type Props = Readonly<{
   planets_promise: Promise<Planet[]>;
 }>;
 
-const fabSX = { position: "absolute", bottom: 16, right: 16 };
+const fabSX = { position: "absolute", top: 16, left: 16 };
 
 export default function PlanetLoader({ planets_promise }: Props) {
   const planets = React.use(planets_promise);
@@ -34,16 +35,11 @@ export default function PlanetLoader({ planets_promise }: Props) {
   return (
     <React.Fragment>
       <CenterBox>
-        <Button variant="outlined" href="/planets/add" sx={{ mb: 1 }}>
-          Add Planet
-        </Button>
-
         <Button
           variant="outlined"
           onClick={() => {
             setShowFilters(!showFilters);
           }}
-          sx={{ mt: 1 }}
         >
           Filters
         </Button>
@@ -95,6 +91,10 @@ export default function PlanetLoader({ planets_promise }: Props) {
           Refresh
         </Button>
       </CenterBox>
+
+      <Fab color="info" sx={fabSX} href="/planets/add">
+        <AddIcon />
+      </Fab>
     </React.Fragment>
   );
 }
