@@ -11,9 +11,7 @@ type Submission = {
   faction?: string;
   abandoned?: boolean | string;
   econDescriptor?: string;
-  econType?: string;
   econState?: string;
-  econStrength?: string;
   conflict?: string;
   exosuit?: boolean | string;
   v3?: boolean | string;
@@ -75,13 +73,41 @@ export function validate_system(submission: Submission): { validSystem?: SystemN
   }
   const sConflict = submission.conflict;
 
-  const sExosuit = submission.exosuit !== undefined ? submission.exosuit === "on" : false;
+  let sExosuit;
+  if (submission.exosuit === undefined) {
+    sExosuit = false;
+  } else if (typeof submission.exosuit === "boolean") {
+    sExosuit = submission.exosuit;
+  } else {
+    sExosuit = submission.exosuit === "on";
+  }
 
-  const sV3 = submission.abandoned !== undefined ? submission.v3 === "on" : false;
+  let sV3;
+  if (submission.v3 === undefined) {
+    sV3 = false;
+  } else if (typeof submission.v3 === "boolean") {
+    sV3 = submission.v3;
+  } else {
+    sV3 = submission.v3 === "on";
+  }
 
-  const sAtlas = submission.atlas !== undefined ? submission.atlas === "on" : false;
+  let sAtlas;
+  if (submission.atlas === undefined) {
+    sAtlas = false;
+  } else if (typeof submission.atlas === "boolean") {
+    sAtlas = submission.atlas;
+  } else {
+    sAtlas = submission.atlas === "on";
+  }
 
-  const sBlackhole = submission.blackhole !== undefined ? submission.blackhole === "on" : false;
+  let sBlackhole;
+  if (submission.blackhole === undefined) {
+    sBlackhole = false;
+  } else if (typeof submission.blackhole === "boolean") {
+    sBlackhole = submission.blackhole;
+  } else {
+    sBlackhole = submission.blackhole === "on";
+  }
 
   const returnSystem: SystemNoId = {
     name: sName,
