@@ -10,6 +10,7 @@ import {
   Collapse,
   Divider,
   IconButton,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -80,11 +81,15 @@ export default function PlanetCard({ planet }: Props) {
 
       <CardActions>
         <IconButton size="small" color="warning" href={`/planets/edit/${planet._id}`} sx={{ mr: 0.5 }}>
-          <EditIcon />
+          <Tooltip title="Edit" arrow>
+            <EditIcon />
+          </Tooltip>
         </IconButton>
 
         <IconButton size="small" color="error" onClick={handle_delete} sx={{ ml: 0.5 }}>
-          <DeleteIcon />
+          <Tooltip title="Delete" arrow>
+            <DeleteIcon />
+          </Tooltip>
         </IconButton>
       </CardActions>
     </Card>
