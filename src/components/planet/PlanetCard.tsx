@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
+import { DeleteForever as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
 
 import { Planet } from "@/lib/types";
 import { biome_border, descriptor_string } from "@/lib/functions";
