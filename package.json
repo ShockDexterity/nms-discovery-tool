@@ -12,24 +12,24 @@
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^7.3.2",
-    "@mui/material": "^7.3.2",
-    "@mui/material-nextjs": "^7.3.2",
-    "mongodb": "^6.19.0",
+    "@mui/icons-material": "^7.3.4",
+    "@mui/material": "^7.3.4",
+    "@mui/material-nextjs": "^7.3.3",
+    "mongodb": "^6.20.0",
     "next": "15.5.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-error-boundary": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@types/node": "^20.19.14",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "eslint": "^9.35.0",
+    "@types/node": "^20.19.19",
+    "@types/react": "^19.2.1",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.37.0",
     "eslint-config-next": "15.5.0",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "prettier": {
     "options": {
