@@ -66,7 +66,11 @@ export default function PlanetCard({ planet }: Props) {
           </Typography>
 
           <Collapse in={open}>
-            <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}>{planet.biome} Biome</Divider>
+            <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}>
+              {planet.extreme && "Extreme"}
+              {planet.extreme && planet.infested && ", "}
+              {planet.infested && "Infested"} {planet.biome} Biome
+            </Divider>
             <Typography variant="body2" color="textSecondary">
               {planet.resources.agricultural === "None" ? "No Agricultural Resource" : planet.resources.agricultural}
             </Typography>
