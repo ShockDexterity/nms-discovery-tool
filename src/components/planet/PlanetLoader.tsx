@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 
-import { Button, Collapse, Divider, Pagination, SpeedDial, SpeedDialAction, SpeedDialIcon, Stack } from "@mui/material";
+import { Collapse, Divider, Pagination, SpeedDial, SpeedDialAction, SpeedDialIcon, Stack } from "@mui/material";
 import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 
-import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 import PlanetCard from "@/components/planet/PlanetCard";
