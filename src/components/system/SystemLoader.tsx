@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
+import React, { act } from "react";
 
-import { Button, Collapse, Divider, Fab } from "@mui/material";
-import { Add as AddIcon } from "@mui/icons-material";
+import { Button, Collapse, Divider, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 
 import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
@@ -18,7 +18,7 @@ type Props = Readonly<{
   systems_promise: Promise<System[]>;
 }>;
 
-const fabSX = { position: "fixed", top: 16, left: 16 };
+const speedSX = { position: "fixed", bottom: 16, left: 16 };
 
 export default function SystemLoader({ systems_promise }: Props) {
   const systems = React.use(systems_promise);
@@ -33,22 +33,15 @@ export default function SystemLoader({ systems_promise }: Props) {
 
   const router = useRouter();
 
+  const actions = [
+    { icon: <CreateIcon />, name: "Add", onclick: () => router.push("/systems/add") },
+    { icon: <FilterIcon />, name: "Filter", onclick: () => setShowFilters(!showFilters) },
+    { icon: <RefreshIcon />, name: "Refresh", onclick: () => router.refresh() },
+  ];
+
   return (
     <React.Fragment>
-      <CenterBox>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            setShowFilters(!showFilters);
-          }}
-        >
-          Filters
-        </Button>
-      </CenterBox>
-
       <Collapse in={showFilters} sx={{ width: "100%" }}>
-        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
-
         <SystemFilters
           faction={faction}
           setFaction={setFaction}
@@ -61,9 +54,9 @@ export default function SystemLoader({ systems_promise }: Props) {
           blackhole={blackhole}
           setBlackhole={setBlackhole}
         />
-      </Collapse>
 
-      <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
+        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
+      </Collapse>
 
       <GridContainer>
         {systems
@@ -85,20 +78,16 @@ export default function SystemLoader({ systems_promise }: Props) {
 
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
-      <CenterBox>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            router.refresh();
-          }}
-        >
-          Refresh
-        </Button>
-      </CenterBox>
-
-      <Fab color="info" sx={fabSX} href="/systems/add">
-        <AddIcon />
-      </Fab>
+      <SpeedDial ariaLabel="speed dial" direction="right" icon={<SpeedDialIcon />} sx={speedSX}>
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            onClick={action.onclick}
+            slotProps={{ tooltip: { title: action.name } }}
+          />
+        ))}
+      </SpeedDial>
     </React.Fragment>
   );
 }

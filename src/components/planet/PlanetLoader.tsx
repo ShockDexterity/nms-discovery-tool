@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 
-import { Button, Collapse, Divider, Fab } from "@mui/material";
-import { Add as AddIcon } from "@mui/icons-material";
+import { Button, Collapse, Divider, Pagination, SpeedDial, SpeedDialAction, SpeedDialIcon, Stack } from "@mui/material";
+import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 
 import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
@@ -18,7 +18,7 @@ type Props = Readonly<{
   planets_promise: Promise<Planet[]>;
 }>;
 
-const fabSX = { position: "fixed", top: 16, left: 16 };
+const speedSX = { position: "fixed", bottom: 16, left: 16 };
 
 export default function PlanetLoader({ planets_promise }: Props) {
   const planets = React.use(planets_promise);
@@ -30,24 +30,34 @@ export default function PlanetLoader({ planets_promise }: Props) {
 
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
+  const [page, setPage] = React.useState<number>(1);
+  const change_page = (e: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  const filtered = planets.filter((planet) =>
+    planet_filter(planet, {
+      boa,
+      stellar,
+      local,
+      general,
+    }),
+  );
+
+  const chunk_size = 12;
+  const num_chunks = Math.floor(filtered.length / chunk_size);
+
   const router = useRouter();
+
+  const actions = [
+    { icon: <CreateIcon />, name: "Add", onclick: () => router.push("/planets/add") },
+    { icon: <FilterIcon />, name: "Filter", onclick: () => setShowFilters(!showFilters) },
+    { icon: <RefreshIcon />, name: "Refresh", onclick: () => router.refresh() },
+  ];
 
   return (
     <React.Fragment>
-      <CenterBox>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            setShowFilters(!showFilters);
-          }}
-        >
-          Filters
-        </Button>
-      </CenterBox>
-
       <Collapse in={showFilters} sx={{ width: "100%" }}>
-        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
-
         <PlanetFilters
           boa={boa}
           setBoa={setBoa}
@@ -58,43 +68,39 @@ export default function PlanetLoader({ planets_promise }: Props) {
           general={general}
           setGeneral={setGeneral}
         />
+
+        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
       </Collapse>
 
-      <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
-
       <GridContainer>
-        {planets
-          .filter((planet) =>
-            planet_filter(planet, {
-              boa,
-              stellar,
-              local,
-              general,
-            }),
-          )
-          .map((planet) => (
-            <GridItem key={planet._id}>
-              <PlanetCard planet={planet} />
-            </GridItem>
-          ))}
+        {filtered.slice((page - 1) * chunk_size, page * chunk_size).map((planet) => (
+          <GridItem key={planet._id}>
+            <PlanetCard planet={planet} />
+          </GridItem>
+        ))}
       </GridContainer>
 
+      <Stack sx={{ alignItems: "center", mt: 2 }}>
+        <Pagination
+          count={filtered.length % chunk_size === 0 && filtered.length !== 0 ? num_chunks : num_chunks + 1}
+          page={page}
+          onChange={change_page}
+          boundaryCount={2}
+        />
+      </Stack>
+
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
-      <CenterBox>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            router.refresh();
-          }}
-        >
-          Refresh
-        </Button>
-      </CenterBox>
-
-      <Fab color="info" sx={fabSX} href="/planets/add">
-        <AddIcon />
-      </Fab>
+      <SpeedDial ariaLabel="speed dial" direction="right" icon={<SpeedDialIcon />} sx={speedSX}>
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            onClick={action.onclick}
+            slotProps={{ tooltip: { title: action.name } }}
+          />
+        ))}
+      </SpeedDial>
     </React.Fragment>
   );
 }
