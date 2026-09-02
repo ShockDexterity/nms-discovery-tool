@@ -52,7 +52,7 @@ export default function PlanetFilters({
         />
       </GridItem>
 
-      <GridItem>
+      <GridItem size={grid_size}>
         <Autocomplete
           clearOnEscape
           options={resources.stellar}
@@ -68,7 +68,7 @@ export default function PlanetFilters({
         />
       </GridItem>
 
-      <GridItem>
+      <GridItem size={grid_size}>
         <Autocomplete
           clearOnEscape
           options={resources.local}
@@ -84,7 +84,7 @@ export default function PlanetFilters({
         />
       </GridItem>
 
-      <GridItem>
+      <GridItem size={grid_size}>
         <Autocomplete
           clearOnEscape
           options={resources.general}
