@@ -9,7 +9,7 @@ type Props = Readonly<{
 
 export default function GridContainer({ spacing, children }: Props) {
   return (
-    <Grid container spacing={spacing ?? 2} alignContent="center" justifyContent="center">
+    <Grid container spacing={spacing ?? 2} sx={{ alignContent: "center", justifyContent: "center" }}>
       {children}
     </Grid>
   );

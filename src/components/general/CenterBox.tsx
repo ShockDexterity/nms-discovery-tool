@@ -9,7 +9,7 @@ type Props = Readonly<{
 
 export default function CenterBox({ component = "div", children }: Props) {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" component={component}>
+    <Box component={component} sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       {children}
     </Box>
   );
