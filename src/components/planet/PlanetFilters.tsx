@@ -39,7 +39,8 @@ export default function PlanetFilters({
       <GridItem size={grid_size}>
         <Autocomplete
           clearOnEscape
-          options={biomes.concat(resources.agricultural)}
+          options={resources.agricultural.slice(1).concat(biomes)}
+          groupBy={(option) => (biomes.includes(option) ? "biome" : "resource")}
           renderInput={(params) => <TextField {...params} label="Biome/Agricultural" name="" size="small" required />}
           value={boa !== "" ? boa : null}
           onInputChange={(event, value, reason) => {

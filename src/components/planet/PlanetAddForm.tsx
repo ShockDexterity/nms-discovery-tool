@@ -12,6 +12,7 @@ import {
   CircularProgress,
   Button,
   Paper,
+  Autocomplete,
 } from "@mui/material";
 
 import CenterBox from "@/components/general/CenterBox";
@@ -20,7 +21,7 @@ import MyAutocomplete from "@/components/general/MyAutocomplete";
 import SystemAutocomplete from "@/components/system/SystemAutocomplete";
 
 import { biome_descriptors } from "@/lib/lists";
-import { resources } from "@/lib/maps";
+import { biomeDescriptorMap, resources } from "@/lib/maps";
 
 import { useRouter } from "next/navigation";
 
@@ -73,6 +74,18 @@ export default function PlanetAddForm() {
     }
   };
 
+  const biome_sorter = (a: string, b: string) => {
+    if (!biomeDescriptorMap[a] && !biomeDescriptorMap[b]) {
+      return 0;
+    } else if (!biomeDescriptorMap[a]) {
+      return "[Inconsistent]".localeCompare(biomeDescriptorMap[b]);
+    } else if (!biomeDescriptorMap[b]) {
+      return biomeDescriptorMap[a].localeCompare("[Inconsistent]");
+    } else {
+      return biomeDescriptorMap[a].localeCompare(biomeDescriptorMap[b]);
+    }
+  };
+
   return (
     <CenterBox>
       <Paper sx={{ py: 2, width: "50%" }}>
@@ -91,7 +104,14 @@ export default function PlanetAddForm() {
             </React.Suspense>
 
             <FormBox>
-              <MyAutocomplete label="Planet Descriptor" name="descriptor" options={biome_descriptors} />
+              <Autocomplete
+                clearOnEscape
+                options={biome_descriptors.sort((a, b) => biome_sorter(a, b))}
+                groupBy={(option) => (biomeDescriptorMap[option] ? biomeDescriptorMap[option] : "[Inconsistent]")}
+                renderInput={(params) => (
+                  <TextField {...params} label="Planet Descriptor" name="descriptor" size="small" required />
+                )}
+              />
             </FormBox>
 
             <FormBox>
