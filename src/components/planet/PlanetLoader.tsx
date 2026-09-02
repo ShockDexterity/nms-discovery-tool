@@ -1,7 +1,18 @@
 "use client";
 import React from "react";
 
-import { Collapse, Divider, Pagination, SpeedDial, SpeedDialAction, SpeedDialIcon, Stack } from "@mui/material";
+import {
+  Collapse,
+  Divider,
+  Pagination,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+  Stack,
+  Avatar,
+  Button,
+  ButtonGroup,
+} from "@mui/material";
 import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 
 import GridContainer from "@/components/general/GridContainer";
@@ -12,6 +23,7 @@ import PlanetFilters from "@/components/planet/PlanetFilters";
 import { Planet } from "@/lib/types";
 
 import { useRouter } from "next/navigation";
+import CenterBox from "@/components/general/CenterBox";
 
 type Props = Readonly<{
   planets_promise: Promise<Planet[]>;
@@ -43,20 +55,34 @@ export default function PlanetLoader({ planets_promise }: Props) {
     }),
   );
 
-  const chunk_size = 12;
+  // const chunk_size = 12;
+  const [chunk_size, setChunkSize] = React.useState<number>(12);
   const num_chunks = Math.floor(filtered.length / chunk_size);
 
   const router = useRouter();
 
   const actions = [
     { icon: <CreateIcon />, name: "Add", onclick: () => router.push("/planets/add") },
-    { icon: <FilterIcon />, name: "Filter", onclick: () => setShowFilters(!showFilters) },
+    {
+      icon: <FilterIcon />,
+      name: "Filter",
+      onclick: () => {
+        setShowFilters(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+    },
     { icon: <RefreshIcon />, name: "Refresh", onclick: () => router.refresh() },
   ];
 
   return (
     <React.Fragment>
       <Collapse in={showFilters} sx={{ width: "100%" }}>
+        <CenterBox>
+          <Button variant="outlined" onClick={() => setShowFilters(false)} sx={{ mb: 2 }}>
+            Close
+          </Button>
+        </CenterBox>
+
         <PlanetFilters
           boa={boa}
           setBoa={setBoa}
@@ -67,6 +93,28 @@ export default function PlanetLoader({ planets_promise }: Props) {
           general={general}
           setGeneral={setGeneral}
         />
+
+        <Divider sx={{ pb: 2, mt: 2, width: "100%", color: "text.secondary" }}>Display Amount</Divider>
+
+        <CenterBox>
+          <ButtonGroup>
+            <Button variant={chunk_size === 6 ? "contained" : "outlined"} onClick={() => setChunkSize(6)}>
+              6
+            </Button>
+            <Button variant={chunk_size === 9 ? "contained" : "outlined"} onClick={() => setChunkSize(9)}>
+              9
+            </Button>
+            <Button variant={chunk_size === 12 ? "contained" : "outlined"} onClick={() => setChunkSize(12)}>
+              12
+            </Button>
+            <Button variant={chunk_size === 15 ? "contained" : "outlined"} onClick={() => setChunkSize(15)}>
+              15
+            </Button>
+            <Button variant={chunk_size === 18 ? "contained" : "outlined"} onClick={() => setChunkSize(18)}>
+              18
+            </Button>
+          </ButtonGroup>
+        </CenterBox>
 
         <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
       </Collapse>
