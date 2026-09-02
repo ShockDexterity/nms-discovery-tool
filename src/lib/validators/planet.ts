@@ -39,19 +39,19 @@ export function validate_planet(
   if (!submission.name) {
     throw new ValidationError("Planet name is required", 400);
   }
-  const sName = submission.name;
+  const valid_name = submission.name;
 
   if (!submission.system) {
     throw new ValidationError("Planet's System name is required", 400);
   }
-  const sSystem = submission.system;
+  const valid_system = submission.system;
 
   if (!submission.descriptor) {
     throw new ValidationError("Biome descriptor is required", 400);
   } else if (!biome_descriptors.includes(submission.descriptor)) {
     throw new ValidationError("Invalid biome descriptor", 400);
   }
-  const sDescriptor = submission.descriptor;
+  const valid_descriptor = submission.descriptor;
 
   const goodMoonOptions = ["yes", "on", "true", true];
   const badMoonOptions = ["no", "off", "false", false];
@@ -61,41 +61,41 @@ export function validate_planet(
       throw new ValidationError(`A "moon" string must be: ${moonOptions.join(" ")}`, 400);
     }
   }
-  const sMoon = submission.moon !== undefined ? goodMoonOptions.includes(submission.moon) : false;
+  const valid_moon = submission.moon !== undefined ? goodMoonOptions.includes(submission.moon) : false;
 
   if (!submission.agricultural) {
     throw new ValidationError("Agricultural resource required", 400);
   } else if (!resources.agricultural.includes(submission.agricultural)) {
     throw new ValidationError("Invalid agricultural resource", 400);
   }
-  const sAgricultural = submission.agricultural;
+  const valid_agricultural = submission.agricultural;
 
   if (!submission.stellar) {
     throw new ValidationError("Stellar resource required", 400);
   } else if (!resources.stellar.includes(submission.stellar)) {
     throw new ValidationError("Invalid stellar metal", 400);
   }
-  const sStellar = submission.stellar;
+  const valid_stellar = submission.stellar;
 
   if (!submission.local) {
     throw new ValidationError("Biome local resource required", 400);
   } else if (!resources.local.includes(submission.local)) {
     throw new ValidationError("Invalid biome local resource", 400);
   }
-  const sLocal = submission.local;
+  const valid_local = submission.local;
 
   if (!submission.general) {
     throw new ValidationError("General resource required", 400);
   } else if (!resources.general.includes(submission.general)) {
     throw new ValidationError("Invalid general resource", 400);
   }
-  const sGeneral = submission.general;
+  const valid_general = submission.general;
 
-  const sResources = {
-    agricultural: sAgricultural,
-    stellar: sStellar,
-    local: sLocal,
-    general: sGeneral,
+  const valid_resources = {
+    agricultural: valid_agricultural,
+    stellar: valid_stellar,
+    local: valid_local,
+    general: valid_general,
   };
 
   if (!submission.sentinels) {
@@ -109,9 +109,9 @@ export function validate_planet(
   ) {
     throw new ValidationError("Invalid Sentinel level", 400);
   }
-  const sSentinels = submission.sentinels;
+  const valid_sentinels = submission.sentinels;
 
-  let sBiome = "";
+  let valid_biome = "";
   if (edit) {
     if (!submission.biome) {
       throw new ValidationError("Must provide planet Biome when editing", 400);
@@ -119,32 +119,32 @@ export function validate_planet(
       throw new ValidationError("Invalid biome", 400);
     }
 
-    const { biome, note } = biome_edit(sDescriptor, sAgricultural, sLocal, submission.biome);
+    const { biome, note } = biome_edit(valid_descriptor, valid_agricultural, valid_local, submission.biome);
 
-    sBiome = biome;
+    valid_biome = biome;
     if (note) {
       warning = note;
     }
   } else {
-    sBiome = biome_new(sDescriptor, sAgricultural, sLocal);
-    if (sBiome.indexOf("/") !== -1) {
+    valid_biome = biome_new(valid_descriptor, valid_agricultural, valid_local);
+    if (valid_biome.indexOf("/") !== -1) {
       warning = 'Cannot determine if planet is "Lush" or "Marsh".';
     }
   }
 
-  verify_resources(sBiome, sAgricultural, sLocal);
+  verify_resources(valid_biome, valid_agricultural, valid_local);
 
   const returnPlanet: PlanetNoId = {
-    name: sName,
-    system: sSystem,
-    descriptor: sDescriptor,
-    sentinels: sSentinels,
-    moon: sMoon,
-    resources: sResources,
-    biome: sBiome,
-    exotic: exotic_biomes.includes(sBiome),
-    extreme: sResources.stellar.startsWith("Activated"),
-    infested: sBiome.includes("Infested"),
+    name: valid_name,
+    system: valid_system,
+    descriptor: valid_descriptor,
+    sentinels: valid_sentinels,
+    moon: valid_moon,
+    resources: valid_resources,
+    biome: valid_biome,
+    exotic: exotic_biomes.includes(valid_biome),
+    extreme: valid_resources.stellar.startsWith("Activated"),
+    infested: valid_biome.includes("Infested"),
   };
 
   if (warning && warning !== "") {
