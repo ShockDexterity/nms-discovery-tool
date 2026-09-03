@@ -59,7 +59,7 @@ export default function PlanetCard({ planet }: Props) {
       {planet.name}
       {planet.base && (
         <Tooltip title={planet.base_name} placement="right" arrow>
-          <HomeIcon color="info" />
+          <HomeIcon color="info" sx={{ ml: 0.5 }} />
         </Tooltip>
       )}
     </CenterBox>

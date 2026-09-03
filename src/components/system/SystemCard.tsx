@@ -138,8 +138,8 @@ export default function SystemCard({ system }: Props) {
   let sys_name = (
     <CenterBox rows>
       {system.name}
-      {!system.exosuit && <BoltIcon color="info" />}
-      {/* {!system.v3 && <CreditCardIcon color="info" />} */}
+      {!system.exosuit && <BoltIcon color="info" sx={{ ml: 0.5 }} />}
+      {/* {!system.v3 && <CreditCardIcon color="info" sx={{ ml: 0.5 }} />} */}
     </CenterBox>
   );
 
