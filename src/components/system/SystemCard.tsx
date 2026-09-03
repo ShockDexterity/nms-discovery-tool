@@ -12,6 +12,7 @@ import {
 
 import { System } from "@/lib/types";
 import { system_border } from "@/lib/functions";
+import CenterBox from "@/components/general/CenterBox";
 
 import { useRouter } from "next/navigation";
 
@@ -86,60 +87,60 @@ export default function SystemCard({ system }: Props) {
       });
   };
 
-  const handle_v3 = (event: SyntheticEvent) => {
-    event.preventDefault();
+  // const handle_v3 = (event: SyntheticEvent) => {
+  //   event.preventDefault();
 
-    fetch(`http://localhost:3000/api/systems/${system._id}`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: system.name,
-        faction: system.faction,
-        abandoned: system.abandoned,
-        econDescriptor: system.economy.descriptor,
-        econState: system.economy.state,
-        conflict: system.conflict,
-        exosuit: system.exosuit,
-        v3: true,
-        atlas: system.atlas,
-        blackhole: system.blackhole,
-      }),
-    })
-      .then((api_response) => api_response.json())
-      .then((response) => {
-        if (response.error) {
-          window.alert("There was an error. Check the console for more information");
-          console.error(response.error);
-          return;
-        }
+  //   fetch(`http://localhost:3000/api/systems/${system._id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: system.name,
+  //       faction: system.faction,
+  //       abandoned: system.abandoned,
+  //       econDescriptor: system.economy.descriptor,
+  //       econState: system.economy.state,
+  //       conflict: system.conflict,
+  //       exosuit: system.exosuit,
+  //       v3: true,
+  //       atlas: system.atlas,
+  //       blackhole: system.blackhole,
+  //     }),
+  //   })
+  //     .then((api_response) => api_response.json())
+  //     .then((response) => {
+  //       if (response.error) {
+  //         window.alert("There was an error. Check the console for more information");
+  //         console.error(response.error);
+  //         return;
+  //       }
 
-        console.log("claimed exosuit upgrade");
+  //       console.log("claimed exosuit upgrade");
 
-        if (response.warn) {
-          window.alert(response.msg);
-          console.warn("warning");
-        } else {
-          console.log("success");
-        }
+  //       if (response.warn) {
+  //         window.alert(response.msg);
+  //         console.warn("warning");
+  //       } else {
+  //         console.log("success");
+  //       }
 
-        router.replace("/systems");
-      })
-      .catch((reason) => {
-        window.alert("There was an error. Check the console for more information");
-        console.error("error caught in .catch");
-        console.error("reason:", reason);
-      });
-  };
+  //       router.replace("/systems");
+  //     })
+  //     .catch((reason) => {
+  //       window.alert("There was an error. Check the console for more information");
+  //       console.error("error caught in .catch");
+  //       console.error("reason:", reason);
+  //     });
+  // };
 
   let sys_name = (
-    <>
+    <CenterBox rows>
       {system.name}
       {!system.exosuit && <BoltIcon color="info" />}
       {/* {!system.v3 && <CreditCardIcon color="info" />} */}
-    </>
+    </CenterBox>
   );
 
   return (

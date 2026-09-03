@@ -61,7 +61,7 @@ export function system_border(hasAtlas: boolean, hasBlackhole: boolean): Object 
     return {
       border,
       borderImageSlice: 1,
-      borderImageSource: "linear-gradient(45deg, #f44336 50%, #ce93d8 50%)",
+      borderImageSource: "linear-gradient(135deg, #f44336 50%, #ce93d8 50%)",
       borderRadius,
       width,
     } as const;

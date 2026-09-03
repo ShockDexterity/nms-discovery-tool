@@ -19,6 +19,7 @@ import { DeleteForever as DeleteIcon, Edit as EditIcon, Home as HomeIcon } from 
 import { Planet } from "@/lib/types";
 import { biome_border, descriptor_string } from "@/lib/functions";
 import SentinelText from "@/components/planet/SentinelText";
+import CenterBox from "@/components/general/CenterBox";
 
 import { useRouter } from "next/navigation";
 
@@ -54,14 +55,14 @@ export default function PlanetCard({ planet }: Props) {
   };
 
   const planet_name = (
-    <>
+    <CenterBox rows>
       {planet.name}
       {planet.base && (
         <Tooltip title={planet.base_name} placement="right" arrow>
           <HomeIcon color="info" />
         </Tooltip>
       )}
-    </>
+    </CenterBox>
   );
 
   return (
