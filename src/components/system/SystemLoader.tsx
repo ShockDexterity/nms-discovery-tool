@@ -60,7 +60,7 @@ export default function SystemLoader({ systems_promise }: Props) {
       <GridContainer>
         {systems
           .filter((system) =>
-            planet_filter(system, {
+            system_filter(system, {
               faction,
               economy,
               conflict,
@@ -91,7 +91,7 @@ export default function SystemLoader({ systems_promise }: Props) {
   );
 }
 
-function planet_filter(
+function system_filter(
   system: System,
   filter: { faction: string; economy: string; conflict: string; atlas: boolean; blackhole: boolean },
 ) {

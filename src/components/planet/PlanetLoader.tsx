@@ -38,6 +38,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
   const [stellar, setStellar] = React.useState<string>("");
   const [local, setLocal] = React.useState<string>("");
   const [general, setGeneral] = React.useState<string>("");
+  const [hasBase, setHasBase] = React.useState<boolean>(false);
 
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
@@ -52,6 +53,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
       stellar,
       local,
       general,
+      hasBase,
     }),
   );
 
@@ -92,6 +94,8 @@ export default function PlanetLoader({ planets_promise }: Props) {
           setLocal={setLocal}
           general={general}
           setGeneral={setGeneral}
+          hasBase={hasBase}
+          setHasBase={setHasBase}
         />
 
         <Divider sx={{ pb: 2, mt: 2, width: "100%", color: "text.secondary" }}>Display Amount</Divider>
@@ -152,9 +156,12 @@ export default function PlanetLoader({ planets_promise }: Props) {
   );
 }
 
-function planet_filter(planet: Planet, filter: { boa: string; stellar: string; local: string; general: string }) {
-  const { boa, stellar, local, general } = filter;
-  if (boa === "" && stellar === "" && local === "" && general === "") {
+function planet_filter(
+  planet: Planet,
+  filter: { boa: string; stellar: string; local: string; general: string; hasBase: boolean },
+) {
+  const { boa, stellar, local, general, hasBase } = filter;
+  if (boa === "" && stellar === "" && local === "" && general === "" && !hasBase) {
     return true;
   }
 
@@ -174,6 +181,10 @@ function planet_filter(planet: Planet, filter: { boa: string; stellar: string; l
 
   if (general !== "") {
     result &&= planet.resources.general === general;
+  }
+
+  if (hasBase) {
+    result &&= planet.base;
   }
 
   return result;

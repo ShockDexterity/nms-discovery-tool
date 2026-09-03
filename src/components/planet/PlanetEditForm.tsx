@@ -34,6 +34,8 @@ export default function PlanetEditForm({ planet_promise }: Props) {
 
   const SentinelLabelId = React.useId();
 
+  const [baseVal, setBaseVal] = React.useState<boolean>(planet.base);
+
   const router = useRouter();
 
   const handle_submit = async (event: FormEvent<HTMLFormElement>) => {
@@ -171,6 +173,34 @@ export default function PlanetEditForm({ planet_promise }: Props) {
                 <FormControlLabel label="Aggressive" value="aggressive" control={<Radio />} />
                 <FormControlLabel label="Corrupt" value="corrupt" control={<Radio />} />
               </RadioGroup>
+            </FormBox>
+
+            <Divider sx={{ my: 0.5, width: "50%" }} />
+
+            <FormBox>
+              <FormLabel>Base Presence</FormLabel>
+            </FormBox>
+            <FormBox>
+              <FormControlLabel
+                label="Has Base"
+                control={
+                  <Checkbox
+                    name="base"
+                    checked={baseVal ?? false}
+                    onChange={(event) => setBaseVal(event.target.checked)}
+                  />
+                }
+              />
+              {baseVal && (
+                // <FormBox>
+                <TextField
+                  label="Base Name"
+                  name="base_name"
+                  size="small"
+                  defaultValue={planet.base_name ?? ""}
+                ></TextField>
+                // </FormBox>
+              )}
             </FormBox>
 
             <Button type="submit" variant="outlined" sx={{ mt: 2 }}>

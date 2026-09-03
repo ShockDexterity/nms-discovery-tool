@@ -15,6 +15,8 @@ export type Planet = {
   exotic: boolean;
   extreme: boolean;
   infested: boolean;
+  base: boolean;
+  base_name: string;
 };
 
 export type PlanetNoId = {
@@ -33,6 +35,8 @@ export type PlanetNoId = {
   exotic: boolean;
   extreme: boolean;
   infested: boolean;
+  base: boolean;
+  base_name: string;
 };
 
 export type System = {

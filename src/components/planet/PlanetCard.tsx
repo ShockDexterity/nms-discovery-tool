@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DeleteForever as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
+import { DeleteForever as DeleteIcon, Edit as EditIcon, Home as HomeIcon } from "@mui/icons-material";
 
 import { Planet } from "@/lib/types";
 import { biome_border, descriptor_string } from "@/lib/functions";
@@ -53,10 +53,21 @@ export default function PlanetCard({ planet }: Props) {
     router.refresh();
   };
 
+  const planet_name = (
+    <>
+      {planet.name}
+      {planet.base && (
+        <Tooltip title={planet.base_name} placement="right" arrow>
+          <HomeIcon color="info" />
+        </Tooltip>
+      )}
+    </>
+  );
+
   return (
     <Card sx={biome_border(planet.extreme, planet.infested, planet.exotic)}>
       <CardActionArea onClick={handle_details}>
-        <CardHeader title={planet.name} subheader={descriptor_string(planet.descriptor, planet.moon)} />
+        <CardHeader title={planet_name} subheader={descriptor_string(planet.descriptor, planet.moon)} />
 
         <CardContent>
           <SentinelText level={planet.sentinels} display="card" />

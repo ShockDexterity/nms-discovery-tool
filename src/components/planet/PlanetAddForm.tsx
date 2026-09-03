@@ -28,6 +28,8 @@ import { useRouter } from "next/navigation";
 export default function PlanetAddForm() {
   const SentinelLabelId = React.useId();
 
+  const [baseVal, setBaseVal] = React.useState<boolean>(false);
+
   const router = useRouter();
 
   const handle_submit = async (event: FormEvent<HTMLFormElement>) => {
@@ -150,6 +152,21 @@ export default function PlanetAddForm() {
                 <FormControlLabel label="Aggressive" value="aggressive" control={<Radio />} />
                 <FormControlLabel label="Corrupt" value="corrupt" control={<Radio />} />
               </RadioGroup>
+            </FormBox>
+
+            <Divider sx={{ my: 0.5, width: "50%" }} />
+
+            <FormBox>
+              <FormLabel>Base Presence</FormLabel>
+            </FormBox>
+            <FormBox>
+              <FormControlLabel
+                label="Has Base"
+                control={
+                  <Checkbox name="base" checked={baseVal} onChange={(event) => setBaseVal(event.target.checked)} />
+                }
+              />
+              {baseVal && <TextField label="Base Name" name="base_name" size="small"></TextField>}
             </FormBox>
 
             <Button type="submit" variant="outlined" sx={{ mt: 2 }}>

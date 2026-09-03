@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Checkbox, FormControlLabel, TextField } from "@mui/material";
 
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 
 import { biomes } from "@/lib/lists";
 import { resources } from "@/lib/maps";
+import CenterBox from "@/components/general/CenterBox";
 
 type Props = {
   boa: string;
@@ -20,6 +21,9 @@ type Props = {
 
   general: string;
   setGeneral: React.Dispatch<React.SetStateAction<string>>;
+
+  hasBase: boolean;
+  setHasBase: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const grid_size = { sm: 6, md: 4, lg: 3 };
@@ -33,6 +37,8 @@ export default function PlanetFilters({
   setLocal,
   general,
   setGeneral,
+  hasBase,
+  setHasBase,
 }: Props) {
   return (
     <GridContainer>
@@ -99,6 +105,23 @@ export default function PlanetFilters({
             }
           }}
         />
+      </GridItem>
+
+      <GridItem size={{ xs: 6, sm: 6, md: 6, lg: 6, xl: 6 }}>
+        <CenterBox>
+          <FormControlLabel
+            label="Has Base"
+            control={
+              <Checkbox
+                name=""
+                checked={hasBase}
+                onChange={(event) => {
+                  setHasBase(event.target.checked);
+                }}
+              />
+            }
+          />
+        </CenterBox>
       </GridItem>
     </GridContainer>
   );

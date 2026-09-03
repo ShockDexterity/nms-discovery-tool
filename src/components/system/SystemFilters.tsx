@@ -26,7 +26,7 @@ type Props = {
   setBlackhole: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const grid_size = { sm: 6, md: 4, lg: 3 };
+const grid_size = { md: 4 };
 
 export default function SystemFilters({
   faction,
@@ -58,7 +58,7 @@ export default function SystemFilters({
         />
       </GridItem>
 
-      <GridItem>
+      <GridItem size={grid_size}>
         <Autocomplete
           clearOnEscape
           options={economy.types}
@@ -74,7 +74,7 @@ export default function SystemFilters({
         />
       </GridItem>
 
-      <GridItem>
+      <GridItem size={grid_size}>
         <Autocomplete
           clearOnEscape
           options={conflict_levels}
@@ -90,7 +90,7 @@ export default function SystemFilters({
         />
       </GridItem>
 
-      <GridItem>
+      <GridItem size={{ xs: 3, sm: 3, md: 6, lg: 6, xl: 6 }}>
         <CenterBox>
           <FormControlLabel
             label="Has Atlas"
@@ -108,7 +108,7 @@ export default function SystemFilters({
         </CenterBox>
       </GridItem>
 
-      <GridItem>
+      <GridItem size={{ xs: 3, sm: 3, md: 6, lg: 6, xl: 6 }}>
         <CenterBox>
           <FormControlLabel
             label="Has Black Hole"
