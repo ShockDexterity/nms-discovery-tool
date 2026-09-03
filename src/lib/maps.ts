@@ -219,7 +219,7 @@ export const resourceBiomeMap: { [index: string]: string[] } = {
   Faecium: ["Marsh"],
   Gold: [...exotic_biomes],
   Mordite: ["Marsh"],
-  Paraffinium: ["Lush", "Marsh"],
+  Paraffinium: ["Lush", "Marsh", "Infested Lush"],
   Phosphorus: ["Scorched", "Chromatic"],
   Pyrite: ["Barren", "Volcanic"],
   "Rusted Metal": ["Dead"],
