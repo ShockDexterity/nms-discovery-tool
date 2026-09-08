@@ -207,6 +207,7 @@ export const biomeAgriculturalResourceMap: { [index: string]: string } = {
   Frozen: "Frost Crystal",
   Irradiated: "Gamma Root",
   Lush: "Star Bulb",
+  Marsh: "None",
   Scorched: "Solanium",
   Toxic: "Fungal Mould",
   Volcanic: "None",
