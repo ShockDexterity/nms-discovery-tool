@@ -213,17 +213,17 @@ export const infestedAgriculturalResourceMap: { [index: string]: string } = {
  * Cobalt, Magnetized Ferrite, Salt, Silver, and Sodium can be found in any biome.
  */
 export const resourceBiomeMap: { [index: string]: string[] } = {
-  Ammonia: ["Toxic", "Chromatic"],
+  Ammonia: ["Toxic", "Chromatic", "Infested Toxic"],
   Basalt: ["Volcanic"],
-  Dioxite: ["Frozen", "Chromatic"],
+  Dioxite: ["Frozen", "Chromatic", "Infested Frozen"],
   Faecium: ["Marsh"],
   Gold: [...exotic_biomes],
   Mordite: ["Marsh"],
   Paraffinium: ["Lush", "Marsh", "Infested Lush"],
-  Phosphorus: ["Scorched", "Chromatic"],
-  Pyrite: ["Barren", "Volcanic"],
+  Phosphorus: ["Scorched", "Chromatic", "Infested Scorched"],
+  Pyrite: ["Barren", "Volcanic", "Infested Barren"],
   "Rusted Metal": ["Dead"],
-  Uranium: ["Irradiated"],
+  Uranium: ["Irradiated", "Infested Irradiated"],
 };
 
 /**
