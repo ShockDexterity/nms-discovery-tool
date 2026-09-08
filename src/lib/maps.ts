@@ -176,6 +176,17 @@ export const biomeDescriptorMap: { [index: string]: string } = {
 };
 
 /**
+ * An object that maps the non-unique biome descriptors to their possible biome types.
+ */
+export const specialDescriptorMap: { [index: string]: string[] } = {
+  Abandoned: ["Barren", "Dead"],
+  Desolate: ["Barren", "Dead"],
+  Corrupted: ["Glitch", "Infested Scorched"],
+  Infested: ["Infested Barren", "Infested Frozen", "Infested Toxic", "Infested Irradiated", "Infested Scorched"],
+  Tropical: ["Lush", "Marsh"],
+};
+
+/**
  * Marsh can have either "None" or "Star Bulb"
  *    and thus needs to be checked separately
  *
@@ -183,11 +194,13 @@ export const biomeDescriptorMap: { [index: string]: string } = {
  */
 export const biomeAgriculturalResourceMap: { [index: string]: string } = {
   Barren: "Cactus Flesh",
+  Dead: "None",
   Frozen: "Frost Crystal",
   Irradiated: "Gamma Root",
   Lush: "Star Bulb",
   Scorched: "Solanium",
   Toxic: "Fungal Mould",
+  Volcanic: "None",
   "Infested Barren": "Cactus Flesh",
   "Infested Frozen": "Frost Crystal",
   "Infested Irradiated": "Gamma Root",

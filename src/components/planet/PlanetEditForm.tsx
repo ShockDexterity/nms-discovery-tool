@@ -12,6 +12,7 @@ import {
   CircularProgress,
   Button,
   Paper,
+  Autocomplete,
 } from "@mui/material";
 
 import CenterBox from "@/components/general/CenterBox";
@@ -20,8 +21,14 @@ import MyAutocomplete from "@/components/general/MyAutocomplete";
 import SystemAutocomplete from "@/components/system/SystemAutocomplete";
 
 import { Planet } from "@/lib/types";
-import { biome_descriptors, biomes } from "@/lib/lists";
-import { resources } from "@/lib/maps";
+import { biome_descriptors, biomes, exotic_biomes } from "@/lib/lists";
+import {
+  biomeAgriculturalResourceMap,
+  biomeDescriptorMap,
+  resourceBiomeMap,
+  resources,
+  specialDescriptorMap,
+} from "@/lib/maps";
 
 import { useRouter } from "next/navigation";
 
@@ -32,9 +39,93 @@ type Props = {
 export default function PlanetEditForm({ planet_promise }: Props) {
   const planet = React.use(planet_promise);
 
-  const SentinelLabelId = React.useId();
-
   const [baseVal, setBaseVal] = React.useState<boolean>(planet.base);
+
+  const [descriptor, setDescriptor] = React.useState<string>(planet.descriptor);
+
+  const biome_sorter = (a: string, b: string) => {
+    if (!biomeDescriptorMap[a] && !biomeDescriptorMap[b]) {
+      return 0;
+    } else if (!biomeDescriptorMap[a]) {
+      return "[Inconsistent]".localeCompare(biomeDescriptorMap[b]);
+    } else if (!biomeDescriptorMap[b]) {
+      return biomeDescriptorMap[a].localeCompare("[Inconsistent]");
+    } else {
+      return biomeDescriptorMap[a].localeCompare(biomeDescriptorMap[b]);
+    }
+  };
+
+  const biome_options = biomes.filter((value) => {
+    if (descriptor === "") {
+      return true;
+    }
+
+    const biome = biomeDescriptorMap[descriptor];
+
+    if (biome) {
+      return biome === value;
+    }
+
+    let possible = false;
+    for (let b of specialDescriptorMap[descriptor]) {
+      if (b === value) {
+        possible = true;
+        break;
+      }
+    }
+
+    return possible;
+  });
+
+  const agriculture_options = resources.agricultural.filter((value) => {
+    if (descriptor === "") {
+      return true;
+    }
+
+    const biome = biomeDescriptorMap[descriptor];
+
+    if (exotic_biomes.includes(biome)) {
+      return value === "None";
+    }
+
+    if (biome) {
+      return biomeAgriculturalResourceMap[biome] === value;
+    }
+
+    let possible = false;
+    for (let b of specialDescriptorMap[descriptor]) {
+      if (biomeAgriculturalResourceMap[b] === value) {
+        possible = true;
+        break;
+      }
+    }
+
+    return possible;
+  });
+
+  const local_options = resources.local.filter((value) => {
+    if (descriptor === "") {
+      return true;
+    }
+
+    const biome = biomeDescriptorMap[descriptor];
+
+    if (biome) {
+      return resourceBiomeMap[value].includes(biome);
+    }
+
+    let possible = false;
+    for (let b of specialDescriptorMap[descriptor]) {
+      if (resourceBiomeMap[value].includes(b)) {
+        possible = true;
+        break;
+      }
+    }
+
+    return possible;
+  });
+
+  const SentinelLabelId = React.useId();
 
   const router = useRouter();
 
@@ -100,16 +191,27 @@ export default function PlanetEditForm({ planet_promise }: Props) {
             </React.Suspense>
 
             <FormBox>
-              <MyAutocomplete
-                label="Planet Descriptor"
-                name="descriptor"
-                options={biome_descriptors}
-                defaultValue={planet.descriptor ?? ""}
+              <Autocomplete
+                clearOnEscape
+                options={biome_descriptors.sort((a, b) => biome_sorter(a, b))}
+                groupBy={(option) => (biomeDescriptorMap[option] ? biomeDescriptorMap[option] : "[Inconsistent]")}
+
+                value={descriptor}
+                onChange={(event, value) => setDescriptor(value ?? "")}
+
+                renderInput={(params) => (
+                  <TextField {...params} label="Planet Descriptor" name="descriptor" size="small" required />
+                )}
               />
             </FormBox>
 
             <FormBox>
-              <MyAutocomplete label="Planet Biome" name="biome" options={biomes} defaultValue={planet.biome ?? ""} />
+              <MyAutocomplete
+                label="Planet Biome"
+                name="biome"
+                options={biome_options}
+                defaultValue={planet.biome ?? ""}
+              />
             </FormBox>
 
             <FormBox>
@@ -124,7 +226,7 @@ export default function PlanetEditForm({ planet_promise }: Props) {
               <MyAutocomplete
                 label="Agricultural Resource"
                 name="agricultural"
-                options={resources.agricultural}
+                options={agriculture_options}
                 defaultValue={planet.resources.agricultural ?? ""}
               />
             </FormBox>
@@ -142,7 +244,7 @@ export default function PlanetEditForm({ planet_promise }: Props) {
               <MyAutocomplete
                 label="Local Resource"
                 name="local"
-                options={resources.local}
+                options={local_options}
                 defaultValue={planet.resources.local ?? ""}
               />
             </FormBox>

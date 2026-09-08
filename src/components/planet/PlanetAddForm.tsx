@@ -20,15 +20,83 @@ import FormBox from "@/components/general/FormBox";
 import MyAutocomplete from "@/components/general/MyAutocomplete";
 import SystemAutocomplete from "@/components/system/SystemAutocomplete";
 
-import { biome_descriptors } from "@/lib/lists";
-import { biomeDescriptorMap, resources } from "@/lib/maps";
+import { biome_descriptors, exotic_biomes } from "@/lib/lists";
+import {
+  biomeAgriculturalResourceMap,
+  biomeDescriptorMap,
+  resourceBiomeMap,
+  resources,
+  specialDescriptorMap,
+} from "@/lib/maps";
 
 import { useRouter } from "next/navigation";
 
 export default function PlanetAddForm() {
-  const SentinelLabelId = React.useId();
+  const [descriptor, setDescriptor] = React.useState<string>("");
 
   const [baseVal, setBaseVal] = React.useState<boolean>(false);
+
+  const biome_sorter = (a: string, b: string) => {
+    if (!biomeDescriptorMap[a] && !biomeDescriptorMap[b]) {
+      return 0;
+    } else if (!biomeDescriptorMap[a]) {
+      return "[Inconsistent]".localeCompare(biomeDescriptorMap[b]);
+    } else if (!biomeDescriptorMap[b]) {
+      return biomeDescriptorMap[a].localeCompare("[Inconsistent]");
+    } else {
+      return biomeDescriptorMap[a].localeCompare(biomeDescriptorMap[b]);
+    }
+  };
+
+  const agriculture_options = resources.agricultural.filter((value) => {
+    if (descriptor === "") {
+      return true;
+    }
+
+    const biome = biomeDescriptorMap[descriptor];
+
+    if (exotic_biomes.includes(biome)) {
+      return value === "None";
+    }
+
+    if (biome) {
+      return biomeAgriculturalResourceMap[biome] === value;
+    }
+
+    let possible = false;
+    for (let b of specialDescriptorMap[descriptor]) {
+      if (biomeAgriculturalResourceMap[b] === value) {
+        possible = true;
+        break;
+      }
+    }
+
+    return possible;
+  });
+
+  const local_options = resources.local.filter((value) => {
+    if (descriptor === "") {
+      return true;
+    }
+
+    const biome = biomeDescriptorMap[descriptor];
+
+    if (biome) {
+      return resourceBiomeMap[value].includes(biome);
+    }
+
+    let possible = false;
+    for (let b of specialDescriptorMap[descriptor]) {
+      if (resourceBiomeMap[value].includes(b)) {
+        possible = true;
+        break;
+      }
+    }
+
+    return possible;
+  });
+
+  const SentinelLabelId = React.useId();
 
   const router = useRouter();
 
@@ -76,18 +144,6 @@ export default function PlanetAddForm() {
     }
   };
 
-  const biome_sorter = (a: string, b: string) => {
-    if (!biomeDescriptorMap[a] && !biomeDescriptorMap[b]) {
-      return 0;
-    } else if (!biomeDescriptorMap[a]) {
-      return "[Inconsistent]".localeCompare(biomeDescriptorMap[b]);
-    } else if (!biomeDescriptorMap[b]) {
-      return biomeDescriptorMap[a].localeCompare("[Inconsistent]");
-    } else {
-      return biomeDescriptorMap[a].localeCompare(biomeDescriptorMap[b]);
-    }
-  };
-
   return (
     <CenterBox>
       <Paper sx={{ py: 2, width: "50%" }}>
@@ -110,6 +166,10 @@ export default function PlanetAddForm() {
                 clearOnEscape
                 options={biome_descriptors.sort((a, b) => biome_sorter(a, b))}
                 groupBy={(option) => (biomeDescriptorMap[option] ? biomeDescriptorMap[option] : "[Inconsistent]")}
+
+                value={descriptor}
+                onChange={(event, value) => setDescriptor(value ?? "")}
+
                 renderInput={(params) => (
                   <TextField {...params} label="Planet Descriptor" name="descriptor" size="small" required />
                 )}
@@ -125,7 +185,7 @@ export default function PlanetAddForm() {
             <FormLabel>Resources</FormLabel>
 
             <FormBox>
-              <MyAutocomplete label="Agricultural Resource" name="agricultural" options={resources.agricultural} />
+              <MyAutocomplete label="Agricultural Resource" name="agricultural" options={agriculture_options} />
             </FormBox>
 
             <FormBox>
@@ -133,7 +193,7 @@ export default function PlanetAddForm() {
             </FormBox>
 
             <FormBox>
-              <MyAutocomplete label="Local Resource" name="local" options={resources.local} />
+              <MyAutocomplete label="Local Resource" name="local" options={local_options} />
             </FormBox>
 
             <FormBox>
