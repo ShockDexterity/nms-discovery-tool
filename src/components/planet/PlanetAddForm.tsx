@@ -166,7 +166,7 @@ export default function PlanetAddForm() {
                   <Checkbox name="base" checked={baseVal} onChange={(event) => setBaseVal(event.target.checked)} />
                 }
               />
-              {baseVal && <TextField label="Base Name" name="base_name" size="small"></TextField>}
+              {baseVal && <TextField label="Base Name" name="base_name" size="small" required={baseVal} />}
             </FormBox>
 
             <Button type="submit" variant="outlined" sx={{ mt: 2 }}>

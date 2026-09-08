@@ -192,14 +192,13 @@ export default function PlanetEditForm({ planet_promise }: Props) {
                 }
               />
               {baseVal && (
-                // <FormBox>
                 <TextField
                   label="Base Name"
                   name="base_name"
                   size="small"
                   defaultValue={planet.base_name ?? ""}
-                ></TextField>
-                // </FormBox>
+                  required={baseVal}
+                />
               )}
             </FormBox>
 
