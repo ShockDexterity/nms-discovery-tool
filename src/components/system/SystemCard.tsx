@@ -39,7 +39,7 @@ export default function SystemCard({ system }: Props) {
     router.refresh();
   };
 
-  const handle_claim = (event: SyntheticEvent) => {
+  const handle_upgrade = (event: SyntheticEvent) => {
     event.preventDefault();
 
     fetch(`http://localhost:3000/api/systems/${system._id}`, {
@@ -135,7 +135,7 @@ export default function SystemCard({ system }: Props) {
   //     });
   // };
 
-  let sys_name = (
+  const sys_name = (
     <CenterBox rows>
       {system.name}
       {!system.exosuit && <BoltIcon color="info" sx={{ ml: 0.5 }} />}
@@ -143,17 +143,19 @@ export default function SystemCard({ system }: Props) {
     </CenterBox>
   );
 
+  const conflict_text = system.conflict === "Outlaw" ? "Pirate Controlled" : `${system.conflict} Conflict`;
+
   return (
     <Card sx={system_border(system.atlas, system.blackhole)}>
       <CardHeader title={sys_name} subheader={system.faction} />
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {system.economy.strength} {system.economy.type.replace("Advanced", "Adv.")} Economy
+          {system.economy.type} // {system.economy.strength}
         </Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
-          {system.conflict} Conflict
+          {conflict_text}
         </Typography>
       </CardContent>
 
@@ -171,7 +173,7 @@ export default function SystemCard({ system }: Props) {
         </IconButton>
 
         {!system.exosuit && (
-          <IconButton size="small" color="info" onClick={handle_claim} sx={{ ml: 0.5 }}>
+          <IconButton size="small" color="info" onClick={handle_upgrade} sx={{ ml: 0.5 }}>
             <Tooltip title="Claim Exosuit Upgrade" arrow>
               <BoltIcon />
             </Tooltip>

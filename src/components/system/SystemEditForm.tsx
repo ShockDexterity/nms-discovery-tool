@@ -153,10 +153,10 @@ export default function SystemEditForm({ system_promise }: Props) {
                 control={<Checkbox name="exosuit" defaultChecked={system.exosuit} />}
               />
 
-              <FormControlLabel
+              {/* <FormControlLabel
                 label="AtlasPass v3 Claimed"
                 control={<Checkbox name="v3" defaultChecked={system.v3} />}
-              />
+              /> */}
             </FormBox>
 
             <Button type="submit" variant="outlined" sx={{ mt: 2 }}>

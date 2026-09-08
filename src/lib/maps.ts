@@ -299,6 +299,7 @@ export const econStrengthMap: { [index: string]: string } = {
   Advanced: "Strong",
   Affluent: "Strong",
   Balanced: "Average",
+  "Black Market": "Black Market",
   Booming: "Strong",
   Comfortable: "Average",
   Declining: "Weak",
@@ -409,6 +410,7 @@ export const economy = {
     "Advanced",
     "Affluent",
     "Balanced",
+    "Black Market",
     "Booming",
     "Comfortable",
     "Declining",
@@ -431,5 +433,5 @@ export const economy = {
     "Unsuccessful",
     "Wealthy",
   ],
-  strengths: ["None", "Weak", "Average", "Strong"],
+  strengths: ["None", "Weak", "Average", "Strong", "Black Market"],
 };
