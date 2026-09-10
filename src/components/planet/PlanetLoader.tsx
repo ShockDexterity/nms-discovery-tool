@@ -42,10 +42,10 @@ export default function PlanetLoader({ planets_promise }: Props) {
 
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
-  const [page, setPage] = React.useState<number>(1);
-  const change_page = (e: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
+  // const [page, setPage] = React.useState<number>(1);
+  // const change_page = (e: React.ChangeEvent<unknown>, value: number) => {
+  //   setPage(value);
+  // };
 
   const filtered = planets.filter((planet) =>
     planet_filter(planet, {
@@ -58,8 +58,8 @@ export default function PlanetLoader({ planets_promise }: Props) {
   );
 
   // const chunk_size = 12;
-  const [chunk_size, setChunkSize] = React.useState<number>(12);
-  const num_chunks = Math.floor(filtered.length / chunk_size);
+  // const [chunk_size, setChunkSize] = React.useState<number>(12);
+  // const num_chunks = Math.floor(filtered.length / chunk_size);
 
   const router = useRouter();
 
@@ -100,7 +100,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
 
         <Divider sx={{ pb: 2, mt: 2, width: "100%", color: "text.secondary" }}>Display Amount</Divider>
 
-        <CenterBox>
+        {/* <CenterBox>
           <ButtonGroup>
             <Button variant={chunk_size === 6 ? "contained" : "outlined"} onClick={() => setChunkSize(6)}>
               6
@@ -118,27 +118,28 @@ export default function PlanetLoader({ planets_promise }: Props) {
               18
             </Button>
           </ButtonGroup>
-        </CenterBox>
+        </CenterBox> */}
 
-        <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
+        {/* <Divider sx={{ pb: 2, mb: 2, width: "100%" }} /> */}
       </Collapse>
 
       <GridContainer>
-        {filtered.slice((page - 1) * chunk_size, page * chunk_size).map((planet) => (
+        {/* .slice((page - 1) * chunk_size, page * chunk_size) */}
+        {filtered.map((planet) => (
           <GridItem key={planet._id}>
             <PlanetCard planet={planet} />
           </GridItem>
         ))}
       </GridContainer>
 
-      <Stack sx={{ alignItems: "center", mt: 2 }}>
+      {/* <Stack sx={{ alignItems: "center", mt: 2 }}>
         <Pagination
           count={filtered.length % chunk_size === 0 && filtered.length !== 0 ? num_chunks : num_chunks + 1}
           page={page}
           onChange={change_page}
           boundaryCount={2}
         />
-      </Stack>
+      </Stack> */}
 
       <Divider sx={{ pb: 2, mb: 2, width: "100%" }} />
 
