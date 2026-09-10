@@ -8,6 +8,7 @@ import {
   biomeDescriptorMap,
   infestedAgriculturalResourceMap,
   resourceBiomeMap,
+  biomeWeatherMap,
 } from "@/lib/maps";
 
 type Submission = {
@@ -15,6 +16,7 @@ type Submission = {
   system?: string;
   descriptor?: string;
   biome?: string;
+  weather?: string;
   moon?: string | boolean;
   agricultural?: string;
   stellar?: string;
@@ -128,7 +130,7 @@ export function validate_planet(
       warning = note;
     }
   } else {
-    valid_biome = biome_new(valid_descriptor, valid_agricultural, valid_local);
+    valid_biome = biome_new(valid_descriptor, valid_agricultural, valid_local, submission.weather);
     if (valid_biome.indexOf("/") !== -1) {
       warning = 'Cannot determine if planet is "Lush" or "Marsh".';
     }
@@ -170,7 +172,7 @@ export function validate_planet(
   };
 }
 
-function biome_new(desc: string, agriculture: string, local: string): string {
+function biome_new(desc: string, agriculture: string, local: string, weather: string = ""): string {
   switch (desc) {
     case "Abandoned":
     case "Desolate":
@@ -201,9 +203,14 @@ function biome_new(desc: string, agriculture: string, local: string): string {
       if (agriculture === "None") {
         return "Marsh";
       } else if (agriculture === "Star Bulb") {
-        if (local === "Faecium" || local === "Mordite") {
+        console.log(desc, agriculture, local, weather);
+
+        if (local === "Faecium" || local === "Mordite" || biomeWeatherMap.marsh.includes(weather)) {
           return "Marsh";
+        } else if (biomeWeatherMap.lush.includes(weather)) {
+          return "Lush";
         } else {
+          // Weather was either 'Humid' or empty
           return "Lush / Marsh";
         }
       } else {
@@ -317,10 +324,6 @@ function verify_resources(biome: string, agriculture: string, local: string) {
       throw new ValidationError(`Biome "${biome}" cannot have agricultural resource "${agriculture}"`, 400);
     }
   } else if (biome === "Lush / Marsh") {
-    if (agriculture !== "Star Bulb") {
-      throw new ValidationError(`Biome "${biome}" cannot have agricultural resource "${agriculture}"`, 400);
-    }
-  } else if (biome === "Lush") {
     if (agriculture !== "Star Bulb") {
       throw new ValidationError(`Biome "${biome}" cannot have agricultural resource "${agriculture}"`, 400);
     }

@@ -24,6 +24,7 @@ import { biome_descriptors, exotic_biomes } from "@/lib/lists";
 import {
   biomeAgriculturalResourceMap,
   biomeDescriptorMap,
+  biomeWeatherMap,
   resourceBiomeMap,
   resources,
   specialDescriptorMap,
@@ -69,6 +70,10 @@ export default function PlanetAddForm() {
         possible = true;
         break;
       }
+    }
+
+    if (!possible && descriptor === "Tropical") {
+      if (value === "None") possible = true;
     }
 
     return possible;
@@ -175,6 +180,22 @@ export default function PlanetAddForm() {
                 )}
               />
             </FormBox>
+
+            {descriptor === "Tropical" && (
+              <FormBox>
+                <Autocomplete
+                  clearOnEscape
+                  options={biomeWeatherMap.lush.concat(biomeWeatherMap.marsh).concat(["Humid"])}
+                  groupBy={(option) =>
+                    option === "Humid" ? "Both" : biomeWeatherMap.lush.includes(option) ? "Lush" : "Marsh"
+                  }
+
+                  renderInput={(params) => (
+                    <TextField {...params} label="Weather Descriptor" name="weather" size="small" required />
+                  )}
+                />
+              </FormBox>
+            )}
 
             <FormBox>
               <FormControlLabel label="Moon" control={<Checkbox name="moon" />} />
