@@ -43,6 +43,7 @@ export type System = {
   _id: string;
   name: string;
   faction: string;
+  guild: string;
   abandoned: boolean;
   economy: {
     descriptor: string;
@@ -60,6 +61,7 @@ export type System = {
 export type SystemNoId = {
   name: string;
   faction: string;
+  guild: string;
   abandoned: boolean;
   economy: {
     descriptor: string;

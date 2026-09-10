@@ -7,7 +7,7 @@ import CenterBox from "@/components/general/CenterBox";
 import FormBox from "@/components/general/FormBox";
 import MyAutocomplete from "@/components/general/MyAutocomplete";
 
-import { conflict_levels, factions } from "@/lib/lists";
+import { conflict_levels, factions, guilds } from "@/lib/lists";
 import { economy } from "@/lib/maps";
 
 import { useRouter } from "next/navigation";
@@ -72,6 +72,10 @@ export default function SystemAddForm() {
 
             <FormBox>
               <MyAutocomplete label="Faction" name="faction" options={factions} />
+            </FormBox>
+
+            <FormBox>
+              <MyAutocomplete label="Guild" name="guild" options={guilds} />
             </FormBox>
 
             <FormBox>

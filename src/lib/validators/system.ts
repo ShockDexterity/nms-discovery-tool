@@ -1,6 +1,6 @@
 import { SystemNoId, ValidationError } from "../types";
 
-import { conflict_levels, factions } from "@/lib/lists";
+import { conflict_levels, factions, guilds } from "@/lib/lists";
 
 import { economy } from "@/lib/maps";
 
@@ -9,6 +9,7 @@ import { econStrengthMap, econTypeMap } from "@/lib/maps";
 type Submission = {
   name?: string;
   faction?: string;
+  guild?: string;
   abandoned?: boolean | string;
   econDescriptor?: string;
   econState?: string;
@@ -37,6 +38,13 @@ export function validate_system(submission: Submission): { validSystem?: SystemN
     throw new ValidationError("Invalid system faction", 400);
   }
   const valid_faction = submission.faction;
+
+  if (!submission.guild) {
+    throw new ValidationError("No guild provided", 400);
+  } else if (!guilds.includes(submission.guild)) {
+    throw new ValidationError("Invalid system guild", 400);
+  }
+  const valid_guild = submission.guild;
 
   const goodAbandonedOptions = ["yes", "abandoned", "true", "on", true];
   const badAbandonedOptions = ["no", "off", "false", false];
@@ -113,6 +121,7 @@ export function validate_system(submission: Submission): { validSystem?: SystemN
   const return_system: SystemNoId = {
     name: valid_name,
     faction: valid_faction,
+    guild: valid_guild,
     abandoned: valid_abandoned,
     economy: {
       descriptor: valid_econ_descriptor,

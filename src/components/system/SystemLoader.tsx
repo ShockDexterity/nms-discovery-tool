@@ -1,7 +1,7 @@
 "use client";
 import React, { act } from "react";
 
-import { Collapse, Divider, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import { Button, Collapse, Divider, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
 import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 
 import GridContainer from "@/components/general/GridContainer";
@@ -12,6 +12,7 @@ import SystemFilters from "@/components/system/SystemFilters";
 import { System } from "@/lib/types";
 
 import { useRouter } from "next/navigation";
+import CenterBox from "@/components/general/CenterBox";
 
 type Props = Readonly<{
   systems_promise: Promise<System[]>;
@@ -23,6 +24,7 @@ export default function SystemLoader({ systems_promise }: Props) {
   const systems = React.use(systems_promise);
 
   const [faction, setFaction] = React.useState<string>("");
+  const [guild, setGuild] = React.useState<string>("");
   const [economy, setEconomy] = React.useState<string>("");
   const [conflict, setConflict] = React.useState<string>("");
   const [atlas, setAtlas] = React.useState<boolean>(false);
@@ -41,9 +43,17 @@ export default function SystemLoader({ systems_promise }: Props) {
   return (
     <React.Fragment>
       <Collapse in={showFilters} sx={{ width: "100%" }}>
+        <CenterBox>
+          <Button variant="outlined" onClick={() => setShowFilters(false)} sx={{ mb: 2 }}>
+            Close
+          </Button>
+        </CenterBox>
+
         <SystemFilters
           faction={faction}
           setFaction={setFaction}
+          guild={guild}
+          setGuild={setGuild}
           economy={economy}
           setEconomy={setEconomy}
           conflict={conflict}
@@ -62,6 +72,7 @@ export default function SystemLoader({ systems_promise }: Props) {
           .filter((system) =>
             system_filter(system, {
               faction,
+              guild,
               economy,
               conflict,
               atlas,
@@ -93,11 +104,11 @@ export default function SystemLoader({ systems_promise }: Props) {
 
 function system_filter(
   system: System,
-  filter: { faction: string; economy: string; conflict: string; atlas: boolean; blackhole: boolean },
+  filter: { faction: string; guild: string; economy: string; conflict: string; atlas: boolean; blackhole: boolean },
 ) {
-  const { faction, economy, conflict, atlas, blackhole } = filter;
+  const { faction, guild, economy, conflict, atlas, blackhole } = filter;
 
-  if (faction === "" && economy === "" && conflict === "" && !atlas && !blackhole) {
+  if (faction === "" && guild === "" && economy === "" && conflict === "" && !atlas && !blackhole) {
     return true;
   }
 
@@ -105,6 +116,10 @@ function system_filter(
 
   if (faction !== "") {
     result &&= system.faction === faction;
+  }
+
+  if (guild !== "") {
+    result &&= system.guild === guild;
   }
 
   if (economy !== "") {

@@ -397,3 +397,6 @@ export const econ_states = [
 
 // A list of economic strengths
 export const econ_strengths = ["None", "Weak", "Average", "Strong"];
+
+// A list of guilds
+export const guilds = ["No Guild", "Explorers Guild", "Merchants Guild", "Mercenaries Guild"];

@@ -147,7 +147,7 @@ export default function SystemCard({ system }: Props) {
 
   return (
     <Card sx={system_border(system.atlas, system.blackhole)}>
-      <CardHeader title={sys_name} subheader={system.faction} />
+      <CardHeader title={sys_name} subheader={`${system.faction} // ${system.guild}`} />
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">

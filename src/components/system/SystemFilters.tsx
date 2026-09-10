@@ -5,13 +5,16 @@ import { Autocomplete, Checkbox, FormControlLabel, TextField } from "@mui/materi
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 
-import { conflict_levels, factions } from "@/lib/lists";
+import { conflict_levels, factions, guilds } from "@/lib/lists";
 import { economy } from "@/lib/maps";
 import CenterBox from "@/components/general/CenterBox";
 
 type Props = {
   faction: string;
   setFaction: React.Dispatch<React.SetStateAction<string>>;
+
+  guild: string;
+  setGuild: React.Dispatch<React.SetStateAction<string>>;
 
   economy: string;
   setEconomy: React.Dispatch<React.SetStateAction<string>>;
@@ -26,11 +29,13 @@ type Props = {
   setBlackhole: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const grid_size = { md: 4 };
+const grid_size = { sm: 6, md: 6, lg: 3 };
 
 export default function SystemFilters({
   faction,
   setFaction,
+  guild,
+  setGuild,
   economy: econ,
   setEconomy,
   conflict,
@@ -53,6 +58,22 @@ export default function SystemFilters({
               setFaction("");
             } else {
               setFaction(value);
+            }
+          }}
+        />
+      </GridItem>
+
+      <GridItem size={grid_size}>
+        <Autocomplete
+          clearOnEscape
+          options={guilds}
+          renderInput={(params) => <TextField {...params} label="Guild" name="" size="small" required />}
+          value={guild !== "" ? guild : null}
+          onInputChange={(event, value, reason) => {
+            if (reason === "clear") {
+              setGuild("");
+            } else {
+              setGuild(value);
             }
           }}
         />
@@ -90,7 +111,7 @@ export default function SystemFilters({
         />
       </GridItem>
 
-      <GridItem size={{ xs: 3, sm: 3, md: 6, lg: 6, xl: 6 }}>
+      <GridItem size={{ md: 6 }}>
         <CenterBox>
           <FormControlLabel
             label="Has Atlas"
@@ -108,7 +129,7 @@ export default function SystemFilters({
         </CenterBox>
       </GridItem>
 
-      <GridItem size={{ xs: 3, sm: 3, md: 6, lg: 6, xl: 6 }}>
+      <GridItem size={{ md: 6 }}>
         <CenterBox>
           <FormControlLabel
             label="Has Black Hole"

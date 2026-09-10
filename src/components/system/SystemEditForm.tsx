@@ -19,7 +19,7 @@ import FormBox from "@/components/general/FormBox";
 import MyAutocomplete from "@/components/general/MyAutocomplete";
 import SystemAutocomplete from "@/components/system/SystemAutocomplete";
 
-import { biome_descriptors, conflict_levels, factions } from "@/lib/lists";
+import { biome_descriptors, conflict_levels, factions, guilds } from "@/lib/lists";
 import { economy, resources } from "@/lib/maps";
 import { System } from "@/lib/types";
 
@@ -91,6 +91,10 @@ export default function SystemEditForm({ system_promise }: Props) {
 
             <FormBox>
               <MyAutocomplete label="Faction" name="faction" options={factions} defaultValue={system.faction ?? ""} />
+            </FormBox>
+
+            <FormBox>
+              <MyAutocomplete label="Guild" name="guild" options={guilds} defaultValue={system.guild ?? ""} />
             </FormBox>
 
             <FormBox>
