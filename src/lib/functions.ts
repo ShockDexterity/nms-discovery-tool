@@ -44,7 +44,7 @@ export function biome_border(extreme: boolean, infested: boolean, exotic: boolea
   }
 }
 
-export function descriptor_string(descriptor: string, isMoon: boolean) {
+export function descriptor_string(descriptor: string, isMoon: boolean, biome: string) {
   if (descriptor === "of Light") {
     return isMoon ? "Moon of Light" : "Planet of Light";
   }
@@ -53,7 +53,7 @@ export function descriptor_string(descriptor: string, isMoon: boolean) {
     return descriptor;
   }
 
-  return `${descriptor} ${isMoon ? "Moon" : "Planet"}`;
+  return `${descriptor} ${isMoon ? "Moon" : "Planet"} (${biome})`;
 }
 
 export function system_border(hasAtlas: boolean, hasBlackhole: boolean): Object {

@@ -4,15 +4,11 @@ import { Typography } from "@mui/material";
 
 type Props = {
   level: string;
-  display: "card" | "dialog";
 };
 
-export default function SentinelText({ level, display }: Props) {
-  const variant = display === "dialog" ? "body1" : "body2";
-  const color = display === "dialog" ? "textPrimary" : "textSecondary";
-
+export default function SentinelText({ level }: Props) {
   return (
-    <Typography variant={variant} color={color} component="span">
+    <Typography variant="body2" color="textSecondary" component="span">
       <Typography variant="inherit" component="span" sx={getStyle(level)}>
         {getLevelText(level)}
       </Typography>{" "}

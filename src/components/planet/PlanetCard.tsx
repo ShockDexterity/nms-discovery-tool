@@ -14,7 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DeleteForever as DeleteIcon, Edit as EditIcon, Home as HomeIcon } from "@mui/icons-material";
+import {
+  DeleteForever as DeleteIcon,
+  Edit as EditIcon,
+  Home as HomeIcon,
+  PriorityHigh as ExclamationIcon,
+} from "@mui/icons-material";
 
 import { Planet } from "@/lib/types";
 import { biome_border, descriptor_string } from "@/lib/functions";
@@ -22,6 +27,8 @@ import SentinelText from "@/components/planet/SentinelText";
 import CenterBox from "@/components/general/CenterBox";
 
 import { useRouter } from "next/navigation";
+import SentinelIcon from "@/components/planet/SentinelIcon";
+import MyTooltip from "@/components/general/MyTooltip";
 
 type Props = Readonly<{ planet: Planet }>;
 
@@ -30,11 +37,11 @@ export default function PlanetCard({ planet }: Props) {
 
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const handle_details = (event: SyntheticEvent) => {
-    event.preventDefault();
+  // const handle_details = (event: SyntheticEvent) => {
+  //   event.preventDefault();
 
-    setOpen(!open);
-  };
+  //   setOpen(!open);
+  // };
 
   const handle_delete = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -58,42 +65,45 @@ export default function PlanetCard({ planet }: Props) {
     <CenterBox rows>
       {planet.name}
       {planet.base && (
-        <Tooltip title={planet.base_name} placement="right" arrow>
+        <MyTooltip
+          title={
+            <Typography variant="body2" color="textSecondary">
+              {planet.base_name}
+            </Typography>
+          }
+        >
           <HomeIcon color="info" sx={{ ml: 0.5 }} />
-        </Tooltip>
+        </MyTooltip>
       )}
+      {<SentinelIcon level={planet.sentinels} />}
     </CenterBox>
   );
 
   return (
     <Card sx={biome_border(planet.extreme, planet.infested, planet.exotic)}>
-      <CardActionArea onClick={handle_details}>
-        <CardHeader title={planet_name} subheader={descriptor_string(planet.descriptor, planet.moon)} />
+      {/* <CardActionArea onClick={handle_details}> */}
+      <CardHeader title={planet_name} subheader={descriptor_string(planet.descriptor, planet.moon, planet.biome)} />
 
-        <CardContent>
-          <SentinelText level={planet.sentinels} display="card" />
+      <CardContent>
+        {/* <SentinelText level={planet.sentinels} /> */}
 
-          <Typography variant="body2" color="textSecondary" component="p">
-            {planet.system} System
-          </Typography>
+        {/* <Collapse in={open}> */}
+        {/* <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}>
+          {planet.extreme && "Extreme"}
+          {planet.extreme && planet.infested && ", "}
+          {planet.infested && !planet.biome.includes("Infested") && "Infested"} {planet.biome} Biome
+        </Divider> */}
+        <Typography variant="body2" color="textSecondary">
+          {planet.resources.agricultural === "None" ? "No Agricultural Resource" : planet.resources.agricultural}
+        </Typography>
 
-          <Collapse in={open}>
-            <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}>
-              {planet.extreme && "Extreme"}
-              {planet.extreme && planet.infested && ", "}
-              {planet.infested && !planet.biome.includes("Infested") && "Infested"} {planet.biome} Biome
-            </Divider>
-            <Typography variant="body2" color="textSecondary">
-              {planet.resources.agricultural === "None" ? "No Agricultural Resource" : planet.resources.agricultural}
-            </Typography>
-
-            <Typography variant="body2" color="textSecondary">
-              {planet.resources.stellar.replace("Activated", "Act.")}, {planet.resources.local},{" "}
-              {planet.resources.general.replace("Magnetized", "Mag.")}
-            </Typography>
-          </Collapse>
-        </CardContent>
-      </CardActionArea>
+        <Typography variant="body2" color="textSecondary">
+          {planet.resources.stellar.replace("Activated", "Act.")}, {planet.resources.local},{" "}
+          {planet.resources.general.replace("Magnetized", "Mag.")}
+        </Typography>
+        {/* </Collapse> */}
+      </CardContent>
+      {/* </CardActionArea> */}
 
       <CardActions>
         <IconButton size="small" color="warning" href={`/planets/edit/${planet._id}`} sx={{ mr: 0.5 }}>
