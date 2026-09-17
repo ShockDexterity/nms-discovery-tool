@@ -53,7 +53,7 @@ export function descriptor_string(descriptor: string, isMoon: boolean, biome: st
     return descriptor;
   }
 
-  return `${descriptor} ${isMoon ? "Moon" : "Planet"} (${biome})`;
+  return `${descriptor} ${isMoon ? "Moon" : "Planet"}`;
 }
 
 export function system_border(hasAtlas: boolean, hasBlackhole: boolean): Object {

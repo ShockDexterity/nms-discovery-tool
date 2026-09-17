@@ -5,7 +5,7 @@ import React from "react";
 import Tooltip from "@mui/material/Tooltip";
 
 type Props = Readonly<{
-  title: React.ReactElement;
+  title: React.ReactNode;
   placement?:
     | "auto-end"
     | "auto-start"
@@ -30,9 +30,12 @@ export default function MyTooltip({ title, placement = "top", no_arrow = false, 
   return (
     <Tooltip
       title={title}
-      arrow={no_arrow}
+      arrow={!no_arrow}
       placement={placement}
       slotProps={{
+        arrow: {
+          sx: { color: "#2F2F2F" },
+        },
         tooltip: {
           sx: { backgroundColor: "#2F2F2F" },
         },

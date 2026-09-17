@@ -8,6 +8,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
@@ -34,7 +35,7 @@ type Props = Readonly<{ planet: Planet }>;
 export default function PlanetCard({ planet }: Props) {
   const router = useRouter();
 
-  const [open, setOpen] = React.useState<boolean>(false);
+  // const [open, setOpen] = React.useState<boolean>(false);
 
   // const handle_details = (event: SyntheticEvent) => {
   //   event.preventDefault();
@@ -71,27 +72,44 @@ export default function PlanetCard({ planet }: Props) {
             </Typography>
           }
         >
-          <HomeIcon color="info" sx={{ ml: 0.5 }} />
+          <HomeIcon color="success" sx={{ ml: 0.5 }} />
         </MyTooltip>
       )}
       {<SentinelIcon level={planet.sentinels} />}
     </CenterBox>
   );
 
+  const descriptor = (
+    <MyTooltip
+      title={
+        <Typography variant="body2" color="textSecondary">
+          {planet.biome} Biome
+        </Typography>
+      }
+      placement="left"
+    >
+      <Typography variant="inherit" color="inherit">
+        {descriptor_string(planet.descriptor, planet.moon, planet.biome)}
+      </Typography>
+    </MyTooltip>
+  );
+
   return (
     <Card sx={biome_border(planet.extreme, planet.infested, planet.exotic)}>
       {/* <CardActionArea onClick={handle_details}> */}
-      <CardHeader title={planet_name} subheader={descriptor_string(planet.descriptor, planet.moon, planet.biome)} />
+      <CardHeader title={planet_name} subheader={descriptor} />
 
       <CardContent>
         {/* <SentinelText level={planet.sentinels} /> */}
 
         {/* <Collapse in={open}> */}
-        {/* <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}>
+        {/* <Divider sx={{ my: 1, width: "100%", color: "text.secondary" }}> */}
+        {/* <Typography variant="body2" color="textSecondary">
           {planet.extreme && "Extreme"}
           {planet.extreme && planet.infested && ", "}
           {planet.infested && !planet.biome.includes("Infested") && "Infested"} {planet.biome} Biome
-        </Divider> */}
+        </Typography> */}
+        {/* </Divider> */}
         <Typography variant="body2" color="textSecondary">
           {planet.resources.agricultural === "None" ? "No Agricultural Resource" : planet.resources.agricultural}
         </Typography>
