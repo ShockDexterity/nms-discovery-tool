@@ -14,7 +14,7 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 
 // mui icon imports
 import CreateIcon from "@mui/icons-material/Create";
-import FilterIcon from "@mui/icons-material/Filter";
+import FilterIcon from "@mui/icons-material/FilterList";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 // custom component imports
