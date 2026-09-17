@@ -1,7 +1,7 @@
-import React from "react";
-
-import { Tooltip } from "@mui/material";
+// mui icon imports
 import { PriorityHigh as ExclamationIcon } from "@mui/icons-material";
+
+// custom component imports
 import SentinelText from "@/components/planet/SentinelText";
 import MyTooltip from "@/components/general/MyTooltip";
 

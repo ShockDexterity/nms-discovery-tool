@@ -1,18 +1,33 @@
 "use client";
-import React, { act } from "react";
 
-import { Button, Collapse, Divider, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
-import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
+// react imports
+import React from "react";
 
+// mui component imports
+import CenterBox from "@/components/general/CenterBox";
+import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
+import Divider from "@mui/material/Divider";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+
+// mui icon imports
+import CreateIcon from "@mui/icons-material/Create";
+import FilterIcon from "@mui/icons-material/Filter";
+import RefreshIcon from "@mui/icons-material/Refresh";
+
+// custom component imports
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 import SystemCard from "@/components/system/SystemCard";
 import SystemFilters from "@/components/system/SystemFilters";
 
+// custom info imports
 import { System } from "@/lib/types";
 
+// next imports
 import { useRouter } from "next/navigation";
-import CenterBox from "@/components/general/CenterBox";
 
 type Props = Readonly<{
   systems_promise: Promise<System[]>;

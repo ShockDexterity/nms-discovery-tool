@@ -1,6 +1,8 @@
+// react imports
 import React from "react";
 
-import { Grid } from "@mui/material";
+// mui component imports
+import Grid from "@mui/material/Grid";
 
 type Props = Readonly<{
   spacing?: number;

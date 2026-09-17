@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, ButtonGroup, Link, Typography } from "@mui/material";
+
+// mui component imports
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+
+// next imports
 import { usePathname } from "next/navigation";
 
 type Props = Readonly<{

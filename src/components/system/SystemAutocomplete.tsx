@@ -1,7 +1,10 @@
+// react imports
 import React from "react";
 
+// custom component imports
 import MyAutocomplete from "@/components/general/MyAutocomplete";
 
+// custom info imports
 import { System } from "@/lib/types";
 
 type Props = Readonly<{ system_list_promise: Promise<System[]>; defaultValue?: string }>;

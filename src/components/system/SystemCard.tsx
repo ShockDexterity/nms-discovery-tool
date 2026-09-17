@@ -1,19 +1,31 @@
 "use client";
-import React, { SyntheticEvent } from "react";
 
-import { Card, CardActions, CardContent, CardHeader, IconButton, Tooltip, Typography } from "@mui/material";
+// react imports
+import { SyntheticEvent } from "react";
 
-import {
-  Bolt as BoltIcon,
-  CreditCard as CreditCardIcon,
-  DeleteForever as DeleteIcon,
-  Edit as EditIcon,
-} from "@mui/icons-material";
+// mui component imports
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
-import { System } from "@/lib/types";
-import { system_border } from "@/lib/functions";
+// mui icon imports
+import BoltIcon from "@mui/icons-material/Bolt";
+// import CreditCardIcon from "@mui/icons-material/CreditCard";
+import DeleteIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+
+// custom component imports
 import CenterBox from "@/components/general/CenterBox";
 
+// custom info imports
+import { System } from "@/lib/types";
+import { system_border } from "@/lib/functions";
+
+// next imports
 import { useRouter } from "next/navigation";
 
 type Props = Readonly<{ system: System }>;

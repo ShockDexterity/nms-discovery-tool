@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+// mui component imports
+import Box from "@mui/material/Box";
 
 type Props = Readonly<{
   children: React.ReactNode;

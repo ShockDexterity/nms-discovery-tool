@@ -25,5 +25,6 @@
         "Waterlocked",
         "Waterworld",
         "Xeno"
-    ]
-}
+    ],
+    "js/ts.preferences.autoImportSpecifierExcludeRegexes": ["^@mui/[^/]+$"],
+  }

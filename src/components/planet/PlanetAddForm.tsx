@@ -1,25 +1,28 @@
 "use client";
-import React, { FormEvent } from "react";
 
-import {
-  FormLabel,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Divider,
-  RadioGroup,
-  Radio,
-  CircularProgress,
-  Button,
-  Paper,
-  Autocomplete,
-} from "@mui/material";
+// react imports
+import React, { SubmitEvent } from "react";
 
+// mui component imports
+import Autocomplete from "@mui/material/Autocomplete";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import CircularProgress from "@mui/material/CircularProgress";
+import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Paper from "@mui/material/Paper";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import TextField from "@mui/material/TextField";
+
+// custom component imports
 import CenterBox from "@/components/general/CenterBox";
 import FormBox from "@/components/general/FormBox";
 import MyAutocomplete from "@/components/general/MyAutocomplete";
 import SystemAutocomplete from "@/components/system/SystemAutocomplete";
 
+// custom info imports
 import { biome_descriptors, exotic_biomes } from "@/lib/lists";
 import {
   biomeAgriculturalResourceMap,
@@ -30,6 +33,7 @@ import {
   specialDescriptorMap,
 } from "@/lib/maps";
 
+// next imports
 import { useRouter } from "next/navigation";
 
 export default function PlanetAddForm() {
@@ -105,7 +109,7 @@ export default function PlanetAddForm() {
 
   const router = useRouter();
 
-  const handle_submit = async (event: FormEvent<HTMLFormElement>) => {
+  const handle_submit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const form = event.currentTarget;

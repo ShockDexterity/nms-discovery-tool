@@ -1,13 +1,20 @@
+// react imports
 import React from "react";
 
-import { Autocomplete, Checkbox, FormControlLabel, TextField } from "@mui/material";
+// mui component imports
+import Autocomplete from "@mui/material/Autocomplete";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
 
+// custom component imports
+import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 
+// custom info imports
 import { biomes } from "@/lib/lists";
 import { resources } from "@/lib/maps";
-import CenterBox from "@/components/general/CenterBox";
 
 type Props = {
   boa: string;

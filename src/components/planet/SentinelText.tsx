@@ -1,6 +1,5 @@
-import React from "react";
-
-import { Typography } from "@mui/material";
+// mui component imports
+import Typography from "@mui/material/Typography";
 
 type Props = {
   level: string;

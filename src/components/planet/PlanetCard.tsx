@@ -1,34 +1,33 @@
 "use client";
+
+// react imports
 import React, { SyntheticEvent } from "react";
 
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Collapse,
-  Divider,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+// mui component imports
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
-import {
-  DeleteForever as DeleteIcon,
-  Edit as EditIcon,
-  Home as HomeIcon,
-  PriorityHigh as ExclamationIcon,
-} from "@mui/icons-material";
+// mui icon imports
+import DeleteIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import HomeIcon from "@mui/icons-material/Home";
 
+// custom component imports
+import CenterBox from "@/components/general/CenterBox";
+import MyTooltip from "@/components/general/MyTooltip";
+import SentinelIcon from "@/components/planet/SentinelIcon";
+
+// custom info imports
 import { Planet } from "@/lib/types";
 import { biome_border, descriptor_string } from "@/lib/functions";
-import SentinelText from "@/components/planet/SentinelText";
-import CenterBox from "@/components/general/CenterBox";
 
+// next imports
 import { useRouter } from "next/navigation";
-import SentinelIcon from "@/components/planet/SentinelIcon";
-import MyTooltip from "@/components/general/MyTooltip";
 
 type Props = Readonly<{ planet: Planet }>;
 

@@ -1,6 +1,8 @@
+// react imports
 import React from "react";
 
-import { Tooltip } from "@mui/material";
+// mui component imports
+import Tooltip from "@mui/material/Tooltip";
 
 type Props = Readonly<{
   title: React.ReactElement;

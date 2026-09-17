@@ -1,4 +1,6 @@
-import { Autocomplete, TextField } from "@mui/material";
+// mui component imports
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 type Props = Readonly<{
   label: string;

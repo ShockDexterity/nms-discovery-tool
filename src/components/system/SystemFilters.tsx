@@ -1,13 +1,17 @@
+// react imports
 import React from "react";
 
+// mui component imports
 import { Autocomplete, Checkbox, FormControlLabel, TextField } from "@mui/material";
 
+// custom component imports
+import CenterBox from "@/components/general/CenterBox";
 import GridContainer from "@/components/general/GridContainer";
 import GridItem from "@/components/general/GridItem";
 
+// custom info imports
 import { conflict_levels, factions, guilds } from "@/lib/lists";
 import { economy } from "@/lib/maps";
-import CenterBox from "@/components/general/CenterBox";
 
 type Props = {
   faction: string;
