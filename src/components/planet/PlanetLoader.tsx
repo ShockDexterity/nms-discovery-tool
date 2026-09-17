@@ -1,18 +1,7 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 
-import {
-  Collapse,
-  Divider,
-  Pagination,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
-  Stack,
-  Avatar,
-  Button,
-  ButtonGroup,
-} from "@mui/material";
+import { Collapse, Divider, SpeedDial, SpeedDialAction, SpeedDialIcon, Button, Box, Typography } from "@mui/material";
 import { Create as CreateIcon, FilterList as FilterIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 
 import GridContainer from "@/components/general/GridContainer";
@@ -47,19 +36,55 @@ export default function PlanetLoader({ planets_promise }: Props) {
   //   setPage(value);
   // };
 
-  const filtered = planets.filter((planet) =>
-    planet_filter(planet, {
-      boa,
-      stellar,
-      local,
-      general,
-      hasBase,
-    }),
-  );
+  // const filtered = planets.filter((planet) =>
+  //   planet_filter(planet, {
+  //     boa,
+  //     stellar,
+  //     local,
+  //     general,
+  //     hasBase,
+  //   }),
+  // );
 
   // const chunk_size = 12;
   // const [chunk_size, setChunkSize] = React.useState<number>(12);
   // const num_chunks = Math.floor(filtered.length / chunk_size);
+
+  const separated = separate_by_system(planets);
+  const systems = Object.keys(separated);
+  const temp: ReactNode[] = [];
+  systems.forEach((system, index) => {
+    const filtered = separated[system].filter((planet) =>
+      planet_filter(planet, {
+        boa,
+        stellar,
+        local,
+        general,
+        hasBase,
+      }),
+    );
+
+    if (filtered.length > 0) {
+      temp.push(
+        <React.Fragment key={index}>
+          <Divider sx={{ py: 2, width: "100%" }}>
+            <Typography component="h5" variant="h5">
+              {system} System
+            </Typography>
+          </Divider>
+          <GridContainer>
+            {filtered.map((planet) => (
+              <GridItem key={planet._id}>
+                <PlanetCard planet={planet} />
+              </GridItem>
+            ))}
+          </GridContainer>
+        </React.Fragment>,
+      );
+    }
+  });
+
+  console.log(systems);
 
   const router = useRouter();
 
@@ -98,7 +123,7 @@ export default function PlanetLoader({ planets_promise }: Props) {
           setHasBase={setHasBase}
         />
 
-        <Divider sx={{ pb: 2, mt: 2, width: "100%", color: "text.secondary" }}>Display Amount</Divider>
+        {/* <Divider sx={{ pb: 2, mt: 2, width: "100%", color: "text.secondary" }}>Display Amount</Divider> */}
 
         {/* <CenterBox>
           <ButtonGroup>
@@ -123,14 +148,16 @@ export default function PlanetLoader({ planets_promise }: Props) {
         {/* <Divider sx={{ pb: 2, mb: 2, width: "100%" }} /> */}
       </Collapse>
 
-      <GridContainer>
-        {/* .slice((page - 1) * chunk_size, page * chunk_size) */}
+      {temp}
+
+      {/* <GridContainer>
+        { .slice((page - 1) * chunk_size, page * chunk_size) }
         {filtered.map((planet) => (
           <GridItem key={planet._id}>
             <PlanetCard planet={planet} />
           </GridItem>
         ))}
-      </GridContainer>
+      </GridContainer> */}
 
       {/* <Stack sx={{ alignItems: "center", mt: 2 }}>
         <Pagination
@@ -189,4 +216,17 @@ function planet_filter(
   }
 
   return result;
+}
+
+function separate_by_system(planets: Planet[]) {
+  const system_object: { [index: string]: Planet[] } = {};
+  planets.forEach((planet) => {
+    if (Object.keys(system_object).includes(planet.system)) {
+      system_object[planet.system].push(planet);
+    } else {
+      system_object[planet.system] = [planet];
+    }
+  });
+
+  return system_object;
 }
